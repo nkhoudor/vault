@@ -1,0 +1,22 @@
+import 'package:{{{app_package}}}/{{{import_path}}}/{{{presenter_file_name}}}';
+import 'package:{{{app_package}}}/{{{import_path}}}/{{{state_file_name}}}';
+import 'package:{{{app_package}}}/utils/mvp_extensions.dart';
+import 'package:flutter/material.dart';
+
+class {{widget_name}} extends StatefulWidget with MaybeHasPresenter<{{presenter_name}}> {
+  const {{widget_name}}({this.presenter, super.key});
+
+  @override
+  final {{presenter_name}}? presenter;
+
+  @override
+  State<{{widget_name}}> createState() => _{{widget_name}}State();
+}
+
+class _{{widget_name}}State extends State<{{widget_name}}>
+    with PresenterStateMixin<{{state_name}}, {{presenter_name}}, {{widget_name}}> {
+      
+  @override
+  Widget build(BuildContext context) =>
+      const Scaffold(body: Center(child: Text('{{widget_name}}\n(NOT IMPLEMENTED YET)')));
+}

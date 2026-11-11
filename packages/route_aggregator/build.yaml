@@ -1,0 +1,16 @@
+targets:
+  $default:
+    builders:
+      route_aggregator|route_aggregator:
+        enabled: true
+
+builders:
+  route_aggregator:
+    target: ":route_aggregator"
+    import: "package:route_aggregator/route_aggregator.dart"
+    builder_factories: ["routeAggregatorBuilder"]
+    build_extensions:
+      .dart: [".g.dart"]
+    auto_apply: dependents
+    build_to: source
+    runs_before: [freezed|freezed]

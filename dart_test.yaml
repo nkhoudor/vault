@@ -1,0 +1,4 @@
+tags:
+  # Pixel comparisons against images rendered on a developer machine.
+  # Skipped in CI: flutter test --exclude-tags golden
+  golden:

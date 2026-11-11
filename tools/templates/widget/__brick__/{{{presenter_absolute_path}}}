@@ -1,0 +1,10 @@
+{{{presenter_imports}}}
+
+class {{presenter_name}} extends Cubit<{{state_name}}> {
+  {{presenter_name}}(super.model, this._navigator, this._repository);
+
+  //ignore: unused_field
+  final {{navigator_name}} _navigator;
+  //ignore: unused_field
+  final {{repository_name}} _repository;
+}

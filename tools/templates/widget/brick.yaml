@@ -1,0 +1,28 @@
+name: widget
+description: Creates the widget, presenter, state, navigator and repository interfaces, and registers them in the feature's DI.
+
+version: 0.1.0+1
+
+environment:
+  mason: "^0.1.0"
+
+vars:
+  root_folder_path:
+    type: string
+    description: root folder path to project where main pubspec.yaml is located
+    prompt: "ABSOLUTE path to project's root directory: "
+
+  widget_name:
+    type: string
+    description: "Widget name"
+    prompt: "widget's name: "
+
+  feature_name:
+    type: string
+    description: "What is the name of the feature?"
+    prompt: "Feature name (in snake_case): "
+
+  subdirectory:
+    type: string
+    description: "subdirectory name inside the feature"
+    prompt: "subdirectory name inside the feature: "

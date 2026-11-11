@@ -1,0 +1,8 @@
+# Signing certificates and provisioning profiles live encrypted in a private repo,
+# one branch per Apple team.
+git_url("git@github.com:7633277/certs.git")
+git_branch("XTUSMJ8H4K")
+storage_mode("git")
+
+app_identifier("dev.rocket.vault")
+team_id("XTUSMJ8H4K")

@@ -1,0 +1,26 @@
+targets:
+  $default:
+    builders:
+      source_gen|combining_builder:
+        generate_for:
+          - lib/**.dart
+        options:
+          build_extensions:
+            '^lib/{{}}.dart': 'lib/generated/{{}}.g.dart'
+      route_aggregator|route_aggregator:
+        enabled: true
+        generate_for:
+          - lib/$lib$
+        options:
+          route_annotation_url: 'package:app_core/app/presentation/routes/app_route_annotation.dart#AppRoute'
+          screen_glob: 'lib/app/presentation/screens/**.dart'
+          output_path: 'lib/app/presentation/routes/app_routes.dart'
+      freezed|freezed:
+        enabled: true
+        options:
+          build_extensions:
+            '^lib/{{}}.dart': 'lib/generated/{{}}.freezed.dart'
+      json_serializable|json_serializable:
+        enabled: true
+        generate_for:
+          - lib/**.dart

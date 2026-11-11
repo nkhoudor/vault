@@ -1,0 +1,18 @@
+{
+  "@@locale": "en",
+  "appTitle": "Vault",
+  "error": "Error",
+  "routeNotFound": "Route not found: {path}",
+  "@routeNotFound": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    }
+  },
+  "goHome": "Go Home",
+  "settings": "Settings",
+  "themePicker": "Theme Picker",
+  "otpScanner": "Scan QR code",
+  "otpManualEntry": "Enter setup key"
+}

@@ -1,0 +1,14 @@
+{
+  "@@locale": "en",
+  "themeMode": "Theme Mode",
+  "system": "System",
+  "light": "Light",
+  "dark": "Dark",
+  "themeCozy": "Cozy",
+  "themeCatppuccin": "Catppuccin",
+  "themeNord": "Nord",
+  "themeDracula": "Dracula",
+  "themeTokyoNight": "Tokyo Night",
+  "themeGruvbox": "Gruvbox",
+  "themeOneDark": "One Dark"
+}

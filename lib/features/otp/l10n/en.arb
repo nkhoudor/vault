@@ -1,0 +1,38 @@
+{
+  "@@locale": "en",
+  "addAccount": "Add account",
+  "addOptionEnterManually": "Enter setup key",
+  "addOptionScanQrCode": "Scan QR code",
+  "cancel": "Cancel",
+  "codeCopiedToClipboard": "Code copied to clipboard",
+  "delete": "Delete",
+  "deleteOtpMessage": "The code for {name} will be removed from this device. Make sure you can still sign in to that account without it.",
+  "@deleteOtpMessage": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "deleteOtpTitle": "Delete this code?",
+  "manualEntryAccountHint": "name@example.com",
+  "manualEntryAccountLabel": "Account (optional)",
+  "manualEntryIssuerHint": "GitHub",
+  "manualEntryIssuerLabel": "Service",
+  "manualEntryIssuerRequired": "Enter the name of the service.",
+  "manualEntrySave": "Add account",
+  "manualEntrySecretKeyHelper": "The key the service shows next to its QR code.",
+  "manualEntrySecretKeyInvalid": "This is not a valid setup key. It can only contain the letters A–Z and the digits 2–7.",
+  "manualEntrySecretKeyLabel": "Setup key",
+  "noMatchingAccounts": "No matching accounts",
+  "saveFailed": "The account could not be saved. Try again.",
+  "scannerCameraDenied": "The app is not allowed to use the camera. Allow it in the device settings, or enter the setup key instead.",
+  "scannerCameraUnavailable": "The camera is not available. Enter the setup key instead.",
+  "scannerErrorInvalidSecret": "This QR code has an invalid key.",
+  "scannerErrorMissingName": "This QR code has no account name. Enter the setup key instead.",
+  "scannerErrorNotOtpAuth": "This is not an authenticator QR code.",
+  "scannerErrorUnsupportedParameters": "This QR code uses settings the app does not support.",
+  "scannerErrorUnsupportedType": "Only time-based codes are supported.",
+  "scannerHint": "Point the camera at the QR code shown by the service.",
+  "searchHint": "Search accounts"
+}

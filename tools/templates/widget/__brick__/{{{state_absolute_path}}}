@@ -1,0 +1,36 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part '{{{relative_generated_feature_path}}}/{{{state_freezed_file_name}}}';
+
+/// Represents the UI or business state for the "{{stem}}" feature.
+@freezed
+abstract class {{state_name}} with _${{state_name}} {
+  const factory {{state_name}}() = _{{state_name}};
+
+  /// Creates an initial empty [{{state_name}}].
+  factory {{state_name}}.empty() {
+    return const {{state_name}}();
+  }
+
+  /// Creates a [{{state_name}}] from initial parameters.
+  // ignore: avoid_unused_constructor_parameters
+  factory {{state_name}}.fromInitialParams({{state_name}}Params? initialParams) {
+    return initialParams == null
+        ? {{state_name}}.empty()
+        : const {{state_name}}();
+  }
+}
+
+/// Represents the input data used to initialize a [{{state_name}}].
+///
+/// Typically, this is passed from the presenter or navigation layer
+/// when the feature is initialized.
+///
+/// **Important:**
+/// Include parameters in this state only if they are owned and managed by this feature.
+/// Parameters controlled by a parent widget (e.g., values that depend on the parent's state)
+/// should be passed through the widget's constructor instead of being part of this state.
+@freezed
+abstract class {{state_name}}Params with _${{state_name}}Params {
+  const factory {{state_name}}Params() = _{{state_name}}Params;
+}

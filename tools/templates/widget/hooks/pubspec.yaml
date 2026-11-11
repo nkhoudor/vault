@@ -1,0 +1,9 @@
+name: widget_hooks
+
+environment:
+  sdk: '>=3.4.4 <4.0.0'
+
+dependencies:
+  template_utils:
+    path: ../../template_utils
+  mason: any

@@ -1,0 +1,83 @@
+default_platform(:ios)
+
+APP_IDENTIFIER = CredentialsManager::AppfileConfig.try_fetch_value(:app_identifier)
+TEAM_ID = CredentialsManager::AppfileConfig.try_fetch_value(:team_id)
+PROJECT_ROOT = File.expand_path("../..", __dir__)
+
+platform :ios do
+  # App Store Connect API key, read from the environment so no Apple ID or 2FA is involved.
+  # ASC_KEY_CONTENT is the .p8 file, base64-encoded.
+  private_lane :api_key do
+    app_store_connect_api_key(
+      key_id: ENV.fetch("ASC_KEY_ID"),
+      issuer_id: ENV.fetch("ASC_ISSUER_ID"),
+      key_content: ENV.fetch("ASC_KEY_CONTENT"),
+      is_key_content_base64: true
+    )
+  end
+
+  # Fetches the certificate and profile of the given type from the certs repo.
+  # Anything missing or expired is created on Apple's side and stored in the repo,
+  # so signing needs no manual upkeep. A certificate that already exists in the
+  # repo is reused, also by other apps that share the same repo and branch.
+  private_lane :sync_signing do |options|
+    match(
+      type: options[:type],
+      readonly: false,
+      renew_expired_certs: true,
+      # Development profiles list the devices they work on; rebuild when a device is added.
+      force_for_new_devices: options[:type] == "development",
+      api_key: options[:api_key]
+    )
+  end
+
+  desc "Install the development certificate and profile on this Mac, to run on a real device. Read-only."
+  lane :certificates do
+    match(type: "development", readonly: true)
+  end
+
+  desc "Build a release and upload it to TestFlight. Run by CI on every push to main."
+  lane :beta do
+    key = api_key
+
+    # On CI this creates a temporary keychain for the certificate; locally it does nothing.
+    setup_ci
+    # Development signing is not used by this build; syncing it here keeps it
+    # created, renewed and up to date with registered devices for local use.
+    sync_signing(type: "development", api_key: key)
+    sync_signing(type: "appstore", api_key: key)
+
+    build_number = latest_testflight_build_number(
+      api_key: key,
+      app_identifier: APP_IDENTIFIER,
+      initial_build_number: 0
+    ) + 1
+
+    # Generates the Flutter build settings Xcode needs and compiles the Dart code.
+    # Signing happens in build_app below, with the profile match installed.
+    sh("flutter", "build", "ios", "--release", "--no-codesign", "--build-number=#{build_number}", chdir: PROJECT_ROOT)
+
+    update_code_signing_settings(
+      path: "Runner.xcodeproj",
+      targets: ["Runner"],
+      build_configurations: ["Release"],
+      use_automatic_signing: false,
+      team_id: TEAM_ID,
+      bundle_identifier: APP_IDENTIFIER,
+      code_sign_identity: "Apple Distribution",
+      profile_name: lane_context[SharedValues::MATCH_PROVISIONING_PROFILE_MAPPING][APP_IDENTIFIER]
+    )
+
+    build_app(
+      workspace: "Runner.xcworkspace",
+      scheme: "Runner",
+      configuration: "Release",
+      export_method: "app-store",
+      output_directory: File.join(PROJECT_ROOT, "build", "ios", "ipa"),
+      output_name: "Vault.ipa"
+    )
+
+    # Apple processes the build after upload; waiting for that would only hold the runner.
+    upload_to_testflight(api_key: key, skip_waiting_for_build_processing: true)
+  end
+end
