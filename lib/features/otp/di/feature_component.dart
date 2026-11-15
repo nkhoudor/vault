@@ -1,10 +1,17 @@
 import 'package:app_core/di/app_component.dart';
+import 'package:app_core/features/otp/data/backup/otp_backup_sheet_builder.dart';
 import 'package:app_core/features/otp/data/repository/otp_repository_impl.dart';
 import 'package:app_core/features/otp/domain/use_case/build_otp_auth_uri_use_case.dart';
 import 'package:app_core/features/otp/domain/use_case/parse_otp_auth_uri_use_case.dart';
 import 'package:app_core/features/otp/domain/use_case/watch_otp_list_use_case.dart';
 import 'package:app_core/features/otp/otp_add_button/otp_add_button_presenter.dart';
 import 'package:app_core/features/otp/otp_add_button/otp_add_button_state.dart';
+import 'package:app_core/features/otp/otp_backup_preview/domain/repository/otp_backup_preview_repository.dart';
+import 'package:app_core/features/otp/otp_backup_preview/otp_backup_preview_presenter.dart';
+import 'package:app_core/features/otp/otp_backup_preview/otp_backup_preview_state.dart';
+import 'package:app_core/features/otp/otp_backup_print/domain/repository/otp_backup_print_repository.dart';
+import 'package:app_core/features/otp/otp_backup_print/otp_backup_print_presenter.dart';
+import 'package:app_core/features/otp/otp_backup_print/otp_backup_print_state.dart';
 import 'package:app_core/features/otp/otp_list/domain/repository/otp_list_repository.dart';
 import 'package:app_core/features/otp/otp_list/otp_list_presenter.dart';
 import 'package:app_core/features/otp/otp_list/otp_list_state.dart';
@@ -38,10 +45,14 @@ class OtpFeatureComponent implements FeatureComponent {
   Future<void> _configureRepositories({required AppComponent appComponent}) async {
     // ignore: unnecessary_statements, avoid_single_cascade_in_expression_statements
     appComponent
-      ..registerLazySingleton<OtpRepositoryImpl>(() => OtpRepositoryImpl(appComponent.get(), appComponent.get()))
+      ..registerLazySingleton<OtpRepositoryImpl>(
+        () => OtpRepositoryImpl(appComponent.get(), appComponent.get(), appComponent.get(), appComponent.get()),
+      )
       ..registerFactory<OtpListRepository>(appComponent.get<OtpRepositoryImpl>)
       ..registerFactory<OtpScannerRepository>(appComponent.get<OtpRepositoryImpl>)
       ..registerFactory<OtpManualEntryRepository>(appComponent.get<OtpRepositoryImpl>)
+      ..registerFactory<OtpBackupPrintRepository>(appComponent.get<OtpRepositoryImpl>)
+      ..registerFactory<OtpBackupPreviewRepository>(appComponent.get<OtpRepositoryImpl>)
     //DO-NOT-REMOVE REPOSITORIES_GET_IT_CONFIG
     ;
   }
@@ -60,6 +71,7 @@ class OtpFeatureComponent implements FeatureComponent {
     appComponent
       ..registerFactory<ParseOtpAuthUriUseCase>(ParseOtpAuthUriUseCase.new)
       ..registerFactory<BuildOtpAuthUriUseCase>(BuildOtpAuthUriUseCase.new)
+      ..registerFactory<OtpBackupSheetBuilder>(() => OtpBackupSheetBuilder(appComponent.get()))
       ..registerFactory<WatchOtpListUseCase>(() => WatchOtpListUseCase(appComponent.get()))
     //DO-NOT-REMOVE USE_CASES_GET_IT_CONFIG
     ;
@@ -103,6 +115,20 @@ class OtpFeatureComponent implements FeatureComponent {
       ..registerFactoryParam<OtpManualEntryPresenter, OtpManualEntryStateParams?, dynamic>(
         (params, _) =>
             OtpManualEntryPresenter(appComponent.get(param1: params), appComponent.get(), appComponent.get()),
+      )
+      ..registerFactoryParam<OtpBackupPrintState, OtpBackupPrintStateParams?, dynamic>(
+        (params, _) => OtpBackupPrintState.fromInitialParams(params),
+      )
+      ..registerFactoryParam<OtpBackupPrintPresenter, OtpBackupPrintStateParams?, dynamic>(
+        (params, _) =>
+            OtpBackupPrintPresenter(appComponent.get(param1: params), appComponent.get(), appComponent.get()),
+      )
+      ..registerFactoryParam<OtpBackupPreviewState, OtpBackupPreviewStateParams?, dynamic>(
+        (params, _) => OtpBackupPreviewState.fromInitialParams(params),
+      )
+      ..registerFactoryParam<OtpBackupPreviewPresenter, OtpBackupPreviewStateParams?, dynamic>(
+        (params, _) =>
+            OtpBackupPreviewPresenter(appComponent.get(param1: params), appComponent.get(), appComponent.get()),
       )
     //DO-NOT-REMOVE MVP_GET_IT_CONFIG
     ;

@@ -24,6 +24,54 @@ class OtpLocalizationsEn extends OtpLocalizations {
   String get addOptionScanQrCodeHint => 'Use the camera on the code a service shows';
 
   @override
+  String get backup => 'Backup';
+
+  @override
+  String get backupPreviewFailed => 'The sheet could not be prepared. Try again.';
+
+  @override
+  String get backupPreviewPrint => 'Print or save as PDF';
+
+  @override
+  String backupPreviewSummary(int count, int pageCount) {
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$count accounts', one: '1 account');
+    String _temp1 = intl.Intl.pluralLogic(pageCount, locale: localeName, other: '$pageCount pages', one: '1 page');
+    return '$_temp0 · $_temp1';
+  }
+
+  @override
+  String get backupPreviewTitle => 'Backup sheet';
+
+  @override
+  String get backupPreviewWarning => 'The sheet shows every setup key. Anyone who has it can generate your codes.';
+
+  @override
+  String get backupSheetFooter =>
+      'Scan with any app, or type the key. Time-based, SHA1, 6 digits, 30 s unless a card says otherwise.';
+
+  @override
+  String backupSheetPage(int page, int pageCount) {
+    return 'Page $page of $pageCount';
+  }
+
+  @override
+  String backupSheetParameters(String algorithm, int digits, int period) {
+    return '$algorithm · $digits digits · $period s';
+  }
+
+  @override
+  String backupSheetSummary(int count, String date) {
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$count accounts', one: '1 account');
+    return '$_temp0 · exported $date';
+  }
+
+  @override
+  String get backupSheetTitle => 'Authenticator backup';
+
+  @override
+  String get backupSheetWarning => 'Keep this page private. Anyone who has it can generate your codes.';
+
+  @override
   String get cancel => 'Cancel';
 
   @override
@@ -70,6 +118,18 @@ class OtpLocalizationsEn extends OtpLocalizations {
 
   @override
   String get noMatchingAccounts => 'No matching accounts';
+
+  @override
+  String get printBackupFailed => 'The sheet could not be printed. Try again.';
+
+  @override
+  String get printBackupSheet => 'Print backup sheet';
+
+  @override
+  String get printBackupSheetNoAccounts => 'Add an account to print a sheet';
+
+  @override
+  String get printBackupSheetSubtitle => 'All accounts on paper or as a PDF';
 
   @override
   String get saveFailed => 'The account could not be saved. Try again.';

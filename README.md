@@ -10,6 +10,7 @@ Vault is a two-factor authenticator app. It stores the setup keys of your accoun
 - Search by service or account name
 - One code at a time in a countdown dial, with every account a tap away in a grid that fits the screen
 - Long-press an account to delete it, with a confirmation
+- Print a backup sheet, or save it as a PDF: a QR code and the setup key of every account, readable by any authenticator app
 - Eight color themes, each with light and dark modes
 
 Setup keys are stored only on the device, in the iOS Keychain or Android Keystore through `flutter_secure_storage`. The app has no backend and no user account. Codes are computed on the device.
@@ -298,7 +299,7 @@ Everyday commands are grouped in the `Makefile`; run `make` to list them. They u
 Golden tests use the `goldenTest()` helper from `test/golden/helpers/golden_test_helpers.dart`.
 All specified screen sizes are rendered **side by side** in a single golden image.
 
-**Coverage:** theme (theme picker, theme mode switch), settings (theme picker), shared (custom app bar), otp (list empty, with items, with many accounts and with no search matches; manual entry empty and with errors).
+**Coverage:** theme (theme picker, theme mode switch), settings (theme picker), shared (custom app bar), otp (list empty, with items, with many accounts and with no search matches; manual entry empty and with errors; backup print row with and without accounts).
 
 ```dart
 import '../helpers/golden_test_helpers.dart';

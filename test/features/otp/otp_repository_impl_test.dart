@@ -1,12 +1,18 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:app_core/core/clipboard/system_clipboard.dart';
+import 'package:app_core/core/printing/document_printer.dart';
 import 'package:app_core/core/storage/secure_storage.dart';
+import 'package:app_core/features/otp/data/backup/otp_backup_sheet_builder.dart';
 import 'package:app_core/features/otp/data/repository/otp_repository_impl.dart';
 import 'package:app_core/features/otp/domain/model/otp_algorithm.dart';
 import 'package:app_core/features/otp/domain/model/otp_secret.dart';
+import 'package:app_core/features/otp/domain/use_case/build_otp_auth_uri_use_case.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+import 'backup_sheet_texts.dart';
 
 class _FakeSecureStorage implements SecureStorage {
   String? value;
@@ -35,6 +41,20 @@ class _FakeSystemClipboard implements SystemClipboard {
   Future<void> setText(String text) async => this.text = text;
 }
 
+class _FakeDocumentPrinter implements DocumentPrinter {
+  String? name;
+  Uint8List? bytes;
+
+  @override
+  Future<List<Uint8List>> renderPages(Uint8List bytes) async => [bytes];
+
+  @override
+  Future<void> sharePdf({required String name, required Uint8List bytes}) async {
+    this.name = name;
+    this.bytes = bytes;
+  }
+}
+
 OtpSecret _secret(String issuer, {String account = ''}) => OtpSecret(
   id: issuer.toLowerCase(),
   issuer: issuer,
@@ -50,6 +70,7 @@ String _encode(List<OtpSecret> secrets) => jsonEncode(secrets.map((s) => s.toJso
 void main() {
   late _FakeSecureStorage storage;
   late _FakeSystemClipboard clipboard;
+  late _FakeDocumentPrinter printer;
   late OtpRepositoryImpl repository;
 
   List<OtpSecret> stored() => [
@@ -61,7 +82,29 @@ void main() {
   setUp(() {
     storage = _FakeSecureStorage()..value = _encode([_secret('A'), _secret('B'), _secret('C')]);
     clipboard = _FakeSystemClipboard();
-    repository = OtpRepositoryImpl(storage, clipboard);
+    printer = _FakeDocumentPrinter();
+    repository = OtpRepositoryImpl(storage, clipboard, printer, const OtpBackupSheetBuilder(BuildOtpAuthUriUseCase()));
+  });
+
+  test(
+    'buildBackupSheet lays the stored accounts out as a PDF named after the sheet, with its pages rendered',
+    () async {
+      TestWidgetsFlutterBinding.ensureInitialized();
+
+      final sheet = await repository.buildBackupSheet(backupSheetTexts);
+
+      expect(sheet.name, 'Authenticator backup');
+      expect(sheet.accountCount, 3);
+      expect(String.fromCharCodes(sheet.pdf.take(5)), '%PDF-');
+      expect(sheet.pages, [sheet.pdf]);
+    },
+  );
+
+  test('shareBackupSheet offers the PDF of the sheet for printing or saving', () async {
+    await repository.shareBackupSheet(backupSheet);
+
+    expect(printer.name, 'Authenticator backup');
+    expect(printer.bytes, backupSheet.pdf);
   });
 
   group('addSecret', () {

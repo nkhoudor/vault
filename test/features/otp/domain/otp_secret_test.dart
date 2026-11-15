@@ -41,4 +41,20 @@ void main() {
       expect(OtpSecret.fromJson(jsonDecode(stored) as Map<String, dynamic>).algorithm, algorithm);
     });
   }
+
+  test('hasDefaultParameters is true only for SHA1, 6 digits and 30 seconds', () {
+    const secret = OtpSecret(
+      id: 'id',
+      issuer: 'GitHub',
+      secret: 'JBSWY3DPEHPK3PXP',
+      period: 30,
+      digits: 6,
+      algorithm: OtpAlgorithm.sha1,
+    );
+
+    expect(secret.hasDefaultParameters, isTrue);
+    expect(secret.copyWith(period: 60).hasDefaultParameters, isFalse);
+    expect(secret.copyWith(digits: 8).hasDefaultParameters, isFalse);
+    expect(secret.copyWith(algorithm: OtpAlgorithm.sha256).hasDefaultParameters, isFalse);
+  });
 }

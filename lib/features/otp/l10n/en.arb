@@ -5,6 +5,61 @@
   "addOptionEnterManuallyHint": "Type the key shown next to the QR code",
   "addOptionScanQrCode": "Scan QR code",
   "addOptionScanQrCodeHint": "Use the camera on the code a service shows",
+  "backup": "Backup",
+  "backupPreviewFailed": "The sheet could not be prepared. Try again.",
+  "backupPreviewPrint": "Print or save as PDF",
+  "backupPreviewSummary": "{count, plural, =1{1 account} other{{count} accounts}} · {pageCount, plural, =1{1 page} other{{pageCount} pages}}",
+  "@backupPreviewSummary": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "pageCount": {
+        "type": "int"
+      }
+    }
+  },
+  "backupPreviewTitle": "Backup sheet",
+  "backupPreviewWarning": "The sheet shows every setup key. Anyone who has it can generate your codes.",
+  "backupSheetFooter": "Scan with any app, or type the key. Time-based, SHA1, 6 digits, 30 s unless a card says otherwise.",
+  "backupSheetPage": "Page {page} of {pageCount}",
+  "@backupSheetPage": {
+    "placeholders": {
+      "page": {
+        "type": "int"
+      },
+      "pageCount": {
+        "type": "int"
+      }
+    }
+  },
+  "backupSheetParameters": "{algorithm} · {digits} digits · {period} s",
+  "@backupSheetParameters": {
+    "placeholders": {
+      "algorithm": {
+        "type": "String"
+      },
+      "digits": {
+        "type": "int"
+      },
+      "period": {
+        "type": "int"
+      }
+    }
+  },
+  "backupSheetSummary": "{count, plural, =1{1 account} other{{count} accounts}} · exported {date}",
+  "@backupSheetSummary": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "backupSheetTitle": "Authenticator backup",
+  "backupSheetWarning": "Keep this page private. Anyone who has it can generate your codes.",
   "cancel": "Cancel",
   "codeCopiedToClipboard": "Code copied to clipboard",
   "delete": "Delete",
@@ -27,6 +82,10 @@
   "manualEntrySecretKeyInvalid": "This is not a valid setup key. It can only contain the letters A–Z and the digits 2–7.",
   "manualEntrySecretKeyLabel": "Setup key",
   "noMatchingAccounts": "No matching accounts",
+  "printBackupFailed": "The sheet could not be printed. Try again.",
+  "printBackupSheet": "Print backup sheet",
+  "printBackupSheetNoAccounts": "Add an account to print a sheet",
+  "printBackupSheetSubtitle": "All accounts on paper or as a PDF",
   "saveFailed": "The account could not be saved. Try again.",
   "scannerCameraDenied": "The app is not allowed to use the camera. Allow it in the device settings, or enter the setup key instead.",
   "scannerCameraUnavailable": "The camera is not available. Enter the setup key instead.",

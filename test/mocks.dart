@@ -1,5 +1,9 @@
 import 'package:app_core/features/otp/domain/use_case/watch_otp_list_use_case.dart';
 import 'package:app_core/features/otp/otp_add_button/otp_add_button_navigator.dart';
+import 'package:app_core/features/otp/otp_backup_preview/domain/repository/otp_backup_preview_repository.dart';
+import 'package:app_core/features/otp/otp_backup_preview/otp_backup_preview_navigator.dart';
+import 'package:app_core/features/otp/otp_backup_print/domain/repository/otp_backup_print_repository.dart';
+import 'package:app_core/features/otp/otp_backup_print/otp_backup_print_navigator.dart';
 import 'package:app_core/features/otp/otp_list/domain/repository/otp_list_repository.dart';
 import 'package:app_core/features/otp/otp_list/otp_list_navigator.dart';
 import 'package:app_core/features/otp/otp_manual_entry/domain/repository/otp_manual_entry_repository.dart';
@@ -15,6 +19,14 @@ import 'package:app_core/features/theme/theme_picker/theme_picker_navigator.dart
 import 'package:mocktail/mocktail.dart';
 
 class MockOtpAddButtonNavigator extends Mock implements OtpAddButtonNavigator {}
+
+class MockOtpBackupPreviewNavigator extends Mock implements OtpBackupPreviewNavigator {}
+
+class MockOtpBackupPreviewRepository extends Mock implements OtpBackupPreviewRepository {}
+
+class MockOtpBackupPrintNavigator extends Mock implements OtpBackupPrintNavigator {}
+
+class MockOtpBackupPrintRepository extends Mock implements OtpBackupPrintRepository {}
 
 class MockOtpListNavigator extends Mock implements OtpListNavigator {}
 

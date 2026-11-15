@@ -1,14 +1,18 @@
 import 'package:app_core/app/data/repository/flutter_secure_storage_impl.dart';
 import 'package:app_core/app/data/repository/flutter_system_clipboard.dart';
 import 'package:app_core/app/data/repository/rx_shared_preferences_storage.dart';
+import 'package:app_core/app/data/repository/system_document_printer.dart';
 import 'package:app_core/app/presentation/app_navigator.dart';
 import 'package:app_core/app/presentation/navigation_service.dart';
 import 'package:app_core/app/presentation/routes/router.dart';
 import 'package:app_core/core/clipboard/system_clipboard.dart';
+import 'package:app_core/core/printing/document_printer.dart';
 import 'package:app_core/core/storage/reactive_storage.dart';
 import 'package:app_core/core/storage/secure_storage.dart';
 import 'package:app_core/di/app_component.dart';
 import 'package:app_core/features/otp/otp_add_button/otp_add_button_navigator.dart';
+import 'package:app_core/features/otp/otp_backup_preview/otp_backup_preview_navigator.dart';
+import 'package:app_core/features/otp/otp_backup_print/otp_backup_print_navigator.dart';
 import 'package:app_core/features/otp/otp_list/otp_list_navigator.dart';
 import 'package:app_core/features/otp/otp_manual_entry/otp_manual_entry_navigator.dart';
 import 'package:app_core/features/otp/otp_scanner/otp_scanner_navigator.dart';
@@ -41,6 +45,8 @@ class AppFeatureComponent implements FeatureComponent {
       ..registerFactory<CustomAppBarNavigator>(appComponent.get<AppNavigator>)
       ..registerFactory<SettingsThemePickerNavigator>(appComponent.get<AppNavigator>)
       ..registerFactory<OtpAddButtonNavigator>(appComponent.get<AppNavigator>)
+      ..registerFactory<OtpBackupPrintNavigator>(appComponent.get<AppNavigator>)
+      ..registerFactory<OtpBackupPreviewNavigator>(appComponent.get<AppNavigator>)
       ..registerFactory<OtpScannerNavigator>(appComponent.get<AppNavigator>)
       ..registerFactory<OtpManualEntryNavigator>(appComponent.get<AppNavigator>)
       ..registerFactory<OtpListNavigator>(appComponent.get<AppNavigator>)
@@ -61,6 +67,7 @@ class AppFeatureComponent implements FeatureComponent {
       )
       ..registerLazySingleton<SecureStorage>(FlutterSecureStorageImpl.new)
       ..registerLazySingleton<SystemClipboard>(FlutterSystemClipboard.new)
+      ..registerLazySingleton<DocumentPrinter>(SystemDocumentPrinter.new)
     //DO-NOT-REMOVE REPOSITORIES_GET_IT_CONFIG
     ;
   }

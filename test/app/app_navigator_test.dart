@@ -1,11 +1,15 @@
 import 'package:app_core/app/presentation/app_navigator.dart';
 import 'package:app_core/app/presentation/navigation_service.dart';
 import 'package:app_core/app/presentation/routes/app_routes.dart';
+import 'package:app_core/features/otp/otp_backup_preview/otp_backup_preview_widget.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mocktail/mocktail.dart';
 
 class _MockNavigationService extends Mock implements NavigationService {}
+
+class _FakeBuildContext extends Fake implements BuildContext {}
 
 void main() {
   late _MockNavigationService navigationService;
@@ -29,6 +33,15 @@ void main() {
     await navigator.navigateToOtpManualEntry();
 
     verify(() => navigationService.goRoute(const AppRoute.otpManualEntry())).called(1);
+  });
+
+  test('navigateToOtpBackupPreview shows the preview in a sheet', () async {
+    when(() => navigationService.showSheet<void>(any())).thenAnswer((_) async {});
+
+    await navigator.navigateToOtpBackupPreview();
+
+    final builder = verify(() => navigationService.showSheet<void>(captureAny())).captured.single as WidgetBuilder;
+    expect(builder(_FakeBuildContext()), isA<OtpBackupPreviewWidget>());
   });
 
   test('navigateBack pops the current route', () async {

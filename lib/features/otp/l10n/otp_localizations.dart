@@ -121,6 +121,78 @@ abstract class OtpLocalizations {
   /// **'Use the camera on the code a service shows'**
   String get addOptionScanQrCodeHint;
 
+  /// No description provided for @backup.
+  ///
+  /// In en, this message translates to:
+  /// **'Backup'**
+  String get backup;
+
+  /// No description provided for @backupPreviewFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'The sheet could not be prepared. Try again.'**
+  String get backupPreviewFailed;
+
+  /// No description provided for @backupPreviewPrint.
+  ///
+  /// In en, this message translates to:
+  /// **'Print or save as PDF'**
+  String get backupPreviewPrint;
+
+  /// No description provided for @backupPreviewSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 account} other{{count} accounts}} · {pageCount, plural, =1{1 page} other{{pageCount} pages}}'**
+  String backupPreviewSummary(int count, int pageCount);
+
+  /// No description provided for @backupPreviewTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Backup sheet'**
+  String get backupPreviewTitle;
+
+  /// No description provided for @backupPreviewWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'The sheet shows every setup key. Anyone who has it can generate your codes.'**
+  String get backupPreviewWarning;
+
+  /// No description provided for @backupSheetFooter.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan with any app, or type the key. Time-based, SHA1, 6 digits, 30 s unless a card says otherwise.'**
+  String get backupSheetFooter;
+
+  /// No description provided for @backupSheetPage.
+  ///
+  /// In en, this message translates to:
+  /// **'Page {page} of {pageCount}'**
+  String backupSheetPage(int page, int pageCount);
+
+  /// No description provided for @backupSheetParameters.
+  ///
+  /// In en, this message translates to:
+  /// **'{algorithm} · {digits} digits · {period} s'**
+  String backupSheetParameters(String algorithm, int digits, int period);
+
+  /// No description provided for @backupSheetSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 account} other{{count} accounts}} · exported {date}'**
+  String backupSheetSummary(int count, String date);
+
+  /// No description provided for @backupSheetTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Authenticator backup'**
+  String get backupSheetTitle;
+
+  /// No description provided for @backupSheetWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep this page private. Anyone who has it can generate your codes.'**
+  String get backupSheetWarning;
+
   /// No description provided for @cancel.
   ///
   /// In en, this message translates to:
@@ -210,6 +282,30 @@ abstract class OtpLocalizations {
   /// In en, this message translates to:
   /// **'No matching accounts'**
   String get noMatchingAccounts;
+
+  /// No description provided for @printBackupFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'The sheet could not be printed. Try again.'**
+  String get printBackupFailed;
+
+  /// No description provided for @printBackupSheet.
+  ///
+  /// In en, this message translates to:
+  /// **'Print backup sheet'**
+  String get printBackupSheet;
+
+  /// No description provided for @printBackupSheetNoAccounts.
+  ///
+  /// In en, this message translates to:
+  /// **'Add an account to print a sheet'**
+  String get printBackupSheetNoAccounts;
+
+  /// No description provided for @printBackupSheetSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'All accounts on paper or as a PDF'**
+  String get printBackupSheetSubtitle;
 
   /// No description provided for @saveFailed.
   ///
