@@ -51,7 +51,28 @@
 		<false/>
 		<key>NSCameraUsageDescription</key>
 		<string>The camera is used to scan the QR code a service shows when you set up two-factor authentication.</string>
+		<key>UIApplicationSceneManifest</key>
+		<dict>
+			<key>UIApplicationSupportsMultipleScenes</key>
+			<false/>
+			<key>UISceneConfigurations</key>
+			<dict>
+				<key>UIWindowSceneSessionRoleApplication</key>
+				<array>
+					<dict>
+						<key>UISceneClassName</key>
+						<string>UIWindowScene</string>
+						<key>UISceneConfigurationName</key>
+						<string>flutter</string>
+						<key>UISceneDelegateClassName</key>
+						<string>FlutterSceneDelegate</string>
+						<key>UISceneStoryboardFile</key>
+						<string>Main</string>
+					</dict>
+				</array>
+			</dict>
+		</dict>
 		<key>ITSAppUsesNonExemptEncryption</key>
 		<false/>
-	</dict>
+</dict>
 </plist>
