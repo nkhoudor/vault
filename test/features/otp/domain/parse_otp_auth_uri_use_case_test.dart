@@ -71,6 +71,12 @@ void main() {
       expect((secret.issuer, secret.account), ('GitHub', ''));
     });
 
+    test('reads a label that only repeats the issuer as no account', () {
+      final secret = parse('otpauth://totp/GitHub?secret=JBSWY3DPEHPK3PXP&issuer=GitHub');
+
+      expect((secret.issuer, secret.account), ('GitHub', ''));
+    });
+
     test('normalizes the key and ignores the case of scheme, type and algorithm', () {
       final secret = parse('  OTPAUTH://TOTP/a?secret=jbswy3dpehpk3pxp%3D%3D&algorithm=sha512  ');
 

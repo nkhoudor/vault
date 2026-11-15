@@ -1,5 +1,6 @@
 import 'package:app_core/di/app_component.dart';
 import 'package:app_core/features/otp/data/repository/otp_repository_impl.dart';
+import 'package:app_core/features/otp/domain/use_case/build_otp_auth_uri_use_case.dart';
 import 'package:app_core/features/otp/domain/use_case/parse_otp_auth_uri_use_case.dart';
 import 'package:app_core/features/otp/domain/use_case/watch_otp_list_use_case.dart';
 import 'package:app_core/features/otp/otp_add_button/otp_add_button_presenter.dart';
@@ -58,6 +59,7 @@ class OtpFeatureComponent implements FeatureComponent {
     // ignore: unnecessary_statements, avoid_single_cascade_in_expression_statements
     appComponent
       ..registerFactory<ParseOtpAuthUriUseCase>(ParseOtpAuthUriUseCase.new)
+      ..registerFactory<BuildOtpAuthUriUseCase>(BuildOtpAuthUriUseCase.new)
       ..registerFactory<WatchOtpListUseCase>(() => WatchOtpListUseCase(appComponent.get()))
     //DO-NOT-REMOVE USE_CASES_GET_IT_CONFIG
     ;

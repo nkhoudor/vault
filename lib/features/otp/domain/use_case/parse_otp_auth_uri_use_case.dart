@@ -40,8 +40,8 @@ class ParseOtpAuthUriUseCase {
       throw const OtpAuthUriException(OtpAuthUriError.invalidSecret);
     }
 
-    final (labelIssuer, account) = _splitLabel(label);
     final issuerParameter = (query['issuer'] ?? '').trim();
+    final (labelIssuer, account) = _splitLabel(label, issuerParameter);
     final issuer = issuerParameter.isNotEmpty ? issuerParameter : labelIssuer;
     if (issuer.isEmpty && account.isEmpty) {
       throw const OtpAuthUriException(OtpAuthUriError.missingName);
@@ -67,7 +67,13 @@ class ParseOtpAuthUriUseCase {
   }
 
   /// Splits `Issuer:account` into its parts; a label without a colon is only an account.
-  (String issuer, String account) _splitLabel(String label) {
+  ///
+  /// A label that starts with [issuer] is split after it, so an issuer may hold a colon itself, and a label that
+  /// only repeats [issuer] names no account.
+  (String issuer, String account) _splitLabel(String label, String issuer) {
+    if (issuer.isNotEmpty && label.trim() == issuer) return (issuer, '');
+    if (issuer.isNotEmpty && label.startsWith('$issuer:')) return (issuer, label.substring(issuer.length + 1).trim());
+
     final separator = label.indexOf(':');
     if (separator < 0) return ('', label.trim());
     return (label.substring(0, separator).trim(), label.substring(separator + 1).trim());
