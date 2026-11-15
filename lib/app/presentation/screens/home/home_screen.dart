@@ -1,4 +1,3 @@
-import 'package:app_core/app/l10n/app_localizations.dart';
 import 'package:app_core/app/presentation/routes/app_route_annotation.dart';
 import 'package:app_core/app/presentation/routes/route_name.dart';
 import 'package:app_core/features/otp/otp_add_button/otp_add_button_widget.dart';
@@ -12,9 +11,9 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBarWidget(title: context.l10n.appTitle, showSettings: true),
-      body: const OtpListWidget(trailing: OtpAddButtonWidget()),
+    return const Scaffold(
+      appBar: CustomAppBarWidget(showSettings: true),
+      body: OtpListWidget(trailing: OtpAddButtonWidget()),
     );
   }
 }

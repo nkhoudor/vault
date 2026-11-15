@@ -18,7 +18,7 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(tester.takeException(), isNull);
-    expect(find.text('Vault'), findsOneWidget);
+    expect(find.byIcon(Icons.tune), findsOneWidget);
 
     await tester.pumpWidget(const SizedBox());
   });

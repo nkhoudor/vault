@@ -6,9 +6,9 @@ import 'package:flutter/material.dart';
 class CustomAppBarWidget extends StatefulWidget
     with MaybeHasPresenter<CustomAppBarPresenter>
     implements PreferredSizeWidget {
-  const CustomAppBarWidget({required this.title, this.presenter, this.showSettings = false, super.key});
+  const CustomAppBarWidget({this.title, this.presenter, this.showSettings = false, super.key});
 
-  final String title;
+  final String? title;
   final bool showSettings;
 
   @override
@@ -29,7 +29,7 @@ class _CustomAppBarWidgetState extends State<CustomAppBarWidget>
       style: IconButton.styleFrom(backgroundColor: Theme.of(context).colorScheme.surfaceContainerHigh),
     ),
     child: AppBar(
-      title: Text(widget.title),
+      title: widget.title == null ? null : Text(widget.title!),
       actionsPadding: const EdgeInsets.only(right: 12),
       actions: widget.showSettings
           ? [IconButton(icon: const Icon(Icons.tune), onPressed: presenter.onSettingsTapped)]
