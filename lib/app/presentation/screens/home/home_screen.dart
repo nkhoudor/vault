@@ -14,8 +14,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBarWidget(title: context.l10n.appTitle, showSettings: true),
-      body: const OtpListWidget(),
-      floatingActionButton: const OtpAddButtonWidget(),
+      body: const OtpListWidget(trailing: OtpAddButtonWidget()),
     );
   }
 }

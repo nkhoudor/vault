@@ -1,41 +1,39 @@
 import 'package:flutter/material.dart';
 
-/// A ring that empties as a code runs out, turning from green through orange to red.
+/// A ring that empties as a code runs out and changes color shortly before the end.
 class OtpCountdownRing extends StatelessWidget {
-  const OtpCountdownRing({required this.remaining, super.key});
+  const OtpCountdownRing({required this.remaining, required this.lightUp, super.key});
 
   /// Share of the code's lifetime that is left, from 1 down to 0.
   final Animation<double> remaining;
 
-  static const _size = 24.0;
-  static const _greenUntil = 0.5;
-  static const _orangeAt = 0.25;
-  static const _redFrom = 0.1;
+  /// How lit the whole ring is, from 0 (the color of its track) to 1 (its own color).
+  final Animation<double> lightUp;
 
-  static Color colorFor(double remaining) {
-    if (remaining >= _greenUntil) return Colors.green;
-    if (remaining >= _orangeAt) {
-      return Color.lerp(Colors.orange, Colors.green, (remaining - _orangeAt) / (_greenUntil - _orangeAt))!;
-    }
-    if (remaining >= _redFrom) {
-      return Color.lerp(Colors.red, Colors.orange, (remaining - _redFrom) / (_orangeAt - _redFrom))!;
-    }
-    return Colors.red;
-  }
+  static const _strokeWidth = 12.0;
+  static const _turningBelow = 0.2;
+  static const _expiringBelow = 0.1;
+
+  /// The primary color, blending into the error color between the last fifth and the last tenth of the lifetime.
+  static Color colorFor(double remaining, ColorScheme colorScheme) => Color.lerp(
+    colorScheme.primary,
+    colorScheme.error,
+    ((_turningBelow - remaining) / (_turningBelow - _expiringBelow)).clamp(0.0, 1.0),
+  )!;
 
   @override
   Widget build(BuildContext context) {
-    final backgroundColor = Theme.of(context).colorScheme.surfaceContainerHighest;
+    final colorScheme = Theme.of(context).colorScheme;
 
-    return SizedBox.square(
-      dimension: _size,
+    return Padding(
+      padding: const EdgeInsets.all(_strokeWidth / 2),
       child: AnimatedBuilder(
-        animation: remaining,
+        animation: Listenable.merge([remaining, lightUp]),
         builder: (context, child) => CircularProgressIndicator(
           value: remaining.value,
-          strokeWidth: 3,
-          backgroundColor: backgroundColor,
-          color: colorFor(remaining.value),
+          strokeWidth: _strokeWidth,
+          backgroundColor: colorScheme.surfaceContainerHigh,
+          color: Color.lerp(colorScheme.surfaceContainerHigh, colorFor(remaining.value, colorScheme), lightUp.value),
           strokeCap: StrokeCap.round,
         ),
       ),

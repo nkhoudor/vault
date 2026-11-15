@@ -25,6 +25,8 @@ class OtpListPresenter extends Cubit<OtpListState> with SubscriptionsMixin {
 
   void onSearchChanged(String query) => tryEmit(state.copyWith(searchQuery: query));
 
+  void onAccountSelected(OtpDisplayable otp) => tryEmit(state.copyWith(selectedId: otp.id));
+
   Future<void> onCodeTapped(OtpDisplayable otp) => _repository.copyCode(otp.code);
 
   Future<void> onDeleteConfirmed(OtpDisplayable otp) => _repository.removeSecret(otp.id);

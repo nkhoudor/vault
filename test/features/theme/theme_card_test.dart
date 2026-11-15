@@ -13,6 +13,7 @@ void main() {
     AppTheme.tokyoNight: 'Tokyo Night',
     AppTheme.gruvbox: 'Gruvbox',
     AppTheme.oneDark: 'One Dark',
+    AppTheme.mint: 'Mint',
   };
 
   for (final theme in AppTheme.values) {

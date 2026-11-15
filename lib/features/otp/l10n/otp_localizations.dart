@@ -103,11 +103,23 @@ abstract class OtpLocalizations {
   /// **'Enter setup key'**
   String get addOptionEnterManually;
 
+  /// No description provided for @addOptionEnterManuallyHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Type the key shown next to the QR code'**
+  String get addOptionEnterManuallyHint;
+
   /// No description provided for @addOptionScanQrCode.
   ///
   /// In en, this message translates to:
   /// **'Scan QR code'**
   String get addOptionScanQrCode;
+
+  /// No description provided for @addOptionScanQrCodeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Use the camera on the code a service shows'**
+  String get addOptionScanQrCodeHint;
 
   /// No description provided for @cancel.
   ///
@@ -258,6 +270,12 @@ abstract class OtpLocalizations {
   /// In en, this message translates to:
   /// **'Search accounts'**
   String get searchHint;
+
+  /// No description provided for @tapToCopy.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to copy'**
+  String get tapToCopy;
 }
 
 class _OtpLocalizationsDelegate extends LocalizationsDelegate<OtpLocalizations> {

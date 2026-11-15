@@ -12,19 +12,13 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return Scaffold(
       appBar: CustomAppBarWidget(title: context.l10n.settings),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
+      body: const Padding(
+        padding: EdgeInsets.fromLTRB(20, 8, 20, 20),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const ThemeModeSwitchWidget(),
-            const SizedBox(height: 16),
-            Divider(height: 1, color: theme.colorScheme.outline),
-            const SettingsThemePickerWidget(),
-          ],
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [ThemeModeSwitchWidget(), SizedBox(height: 20), SettingsThemePickerWidget()],
         ),
       ),
     );

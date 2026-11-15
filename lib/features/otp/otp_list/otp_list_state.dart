@@ -1,4 +1,5 @@
 import 'package:app_core/features/otp/domain/model/otp.dart';
+import 'package:collection/collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part '../../../generated/features/otp/otp_list/otp_list_state.freezed.dart';
@@ -6,8 +7,11 @@ part '../../../generated/features/otp/otp_list/otp_list_state.freezed.dart';
 /// Represents the UI or business state for the "OtpList" feature.
 @freezed
 abstract class OtpListState with _$OtpListState {
-  const factory OtpListState({required Iterable<OtpDisplayable> otpList, @Default('') String searchQuery}) =
-      _OtpListState;
+  const factory OtpListState({
+    required Iterable<OtpDisplayable> otpList,
+    @Default('') String searchQuery,
+    String? selectedId,
+  }) = _OtpListState;
 
   const OtpListState._();
 
@@ -31,6 +35,12 @@ abstract class OtpListState with _$OtpListState {
       for (final otp in otpList)
         if (query.isEmpty || otp.name.toLowerCase().contains(query) || otp.account.toLowerCase().contains(query)) otp,
     ];
+  }
+
+  /// The entry whose code is shown: the picked one while it is visible, otherwise the first visible entry.
+  OtpDisplayable? get selectedEntry {
+    final entries = visibleEntries;
+    return entries.firstWhereOrNull((otp) => otp.id == selectedId) ?? entries.firstOrNull;
   }
 }
 

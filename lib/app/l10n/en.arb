@@ -12,7 +12,7 @@
   },
   "goHome": "Go Home",
   "settings": "Settings",
-  "themePicker": "Theme Picker",
+  "themePicker": "Color theme",
   "otpScanner": "Scan QR code",
   "otpManualEntry": "Enter setup key"
 }

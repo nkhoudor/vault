@@ -2,7 +2,9 @@
   "@@locale": "en",
   "addAccount": "Add account",
   "addOptionEnterManually": "Enter setup key",
+  "addOptionEnterManuallyHint": "Type the key shown next to the QR code",
   "addOptionScanQrCode": "Scan QR code",
+  "addOptionScanQrCodeHint": "Use the camera on the code a service shows",
   "cancel": "Cancel",
   "codeCopiedToClipboard": "Code copied to clipboard",
   "delete": "Delete",
@@ -34,5 +36,6 @@
   "scannerErrorUnsupportedParameters": "This QR code uses settings the app does not support.",
   "scannerErrorUnsupportedType": "Only time-based codes are supported.",
   "scannerHint": "Point the camera at the QR code shown by the service.",
-  "searchHint": "Search accounts"
+  "searchHint": "Search accounts",
+  "tapToCopy": "Tap to copy"
 }

@@ -24,10 +24,16 @@ class CustomAppBarWidget extends StatefulWidget
 class _CustomAppBarWidgetState extends State<CustomAppBarWidget>
     with PresenterStateMixin<CustomAppBarState, CustomAppBarPresenter, CustomAppBarWidget> {
   @override
-  Widget build(BuildContext context) => AppBar(
-    title: Text(widget.title),
-    actions: widget.showSettings
-        ? [IconButton(icon: const Icon(Icons.settings), onPressed: () => presenter.onSettingsTapped())]
-        : null,
+  Widget build(BuildContext context) => IconButtonTheme(
+    data: IconButtonThemeData(
+      style: IconButton.styleFrom(backgroundColor: Theme.of(context).colorScheme.surfaceContainerHigh),
+    ),
+    child: AppBar(
+      title: Text(widget.title),
+      actionsPadding: const EdgeInsets.only(right: 12),
+      actions: widget.showSettings
+          ? [IconButton(icon: const Icon(Icons.tune), onPressed: presenter.onSettingsTapped)]
+          : null,
+    ),
   );
 }

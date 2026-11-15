@@ -22,12 +22,12 @@ class _ThemePickerWidgetState extends State<ThemePickerWidget>
     return stateObserver(
       builder: (context, state) {
         return GridView.builder(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.fromLTRB(20, 8, 20, 24),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
-            crossAxisSpacing: 16,
-            mainAxisSpacing: 16,
-            childAspectRatio: 0.8,
+            crossAxisSpacing: 12,
+            mainAxisSpacing: 12,
+            childAspectRatio: 1.4,
           ),
           itemCount: state.themes.length,
           itemBuilder: (context, index) {

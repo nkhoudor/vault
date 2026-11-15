@@ -94,7 +94,7 @@ abstract class ThemeLocalizations {
   /// No description provided for @themeMode.
   ///
   /// In en, this message translates to:
-  /// **'Theme Mode'**
+  /// **'Appearance'**
   String get themeMode;
 
   /// No description provided for @system.
@@ -156,6 +156,12 @@ abstract class ThemeLocalizations {
   /// In en, this message translates to:
   /// **'One Dark'**
   String get themeOneDark;
+
+  /// No description provided for @themeMint.
+  ///
+  /// In en, this message translates to:
+  /// **'Mint'**
+  String get themeMint;
 }
 
 class _ThemeLocalizationsDelegate extends LocalizationsDelegate<ThemeLocalizations> {

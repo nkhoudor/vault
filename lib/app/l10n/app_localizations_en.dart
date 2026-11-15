@@ -26,7 +26,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settings => 'Settings';
 
   @override
-  String get themePicker => 'Theme Picker';
+  String get themePicker => 'Color theme';
 
   @override
   String get otpScanner => 'Scan QR code';

@@ -47,15 +47,15 @@ void main() {
   });
 
   group('OtpCountdownRing.colorFor', () {
-    test('is green for the first half, red at the end and blends in between', () {
-      expect(OtpCountdownRing.colorFor(1), Colors.green);
-      expect(OtpCountdownRing.colorFor(0.5), Colors.green);
-      expect(OtpCountdownRing.colorFor(0.25).toARGB32(), Colors.orange.toARGB32());
-      expect(OtpCountdownRing.colorFor(0.05), Colors.red);
+    test('is the primary color, then blends into the error color between the last fifth and the last tenth', () {
+      const colorScheme = ColorScheme.light();
+      int colorAt(double remaining) => OtpCountdownRing.colorFor(remaining, colorScheme).toARGB32();
 
-      final blend = OtpCountdownRing.colorFor(0.4);
-      expect(blend, isNot(Colors.green));
-      expect(blend.toARGB32(), isNot(Colors.orange.toARGB32()));
+      expect(colorAt(1), colorScheme.primary.toARGB32());
+      expect(colorAt(0.2), colorScheme.primary.toARGB32());
+      expect(colorAt(0.15), Color.lerp(colorScheme.primary, colorScheme.error, 0.5)!.toARGB32());
+      expect(colorAt(0.1), colorScheme.error.toARGB32());
+      expect(colorAt(0), colorScheme.error.toARGB32());
     });
   });
 }

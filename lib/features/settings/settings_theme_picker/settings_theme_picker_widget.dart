@@ -18,15 +18,16 @@ class _SettingsThemePickerWidgetState extends State<SettingsThemePickerWidget>
     with PresenterStateMixin<SettingsThemePickerState, SettingsThemePickerPresenter, SettingsThemePickerWidget> {
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final iconColor = theme.colorScheme.onSurface;
+    final colorScheme = Theme.of(context).colorScheme;
     final l10n = context.l10n;
     return ListTile(
-      leading: Icon(Icons.palette, color: iconColor),
+      leading: Icon(Icons.palette_outlined, color: colorScheme.primary),
       title: Text(l10n.themePicker),
       subtitle: Text(l10n.themePickerSubtitle),
-      trailing: Icon(Icons.chevron_right, color: iconColor),
-      contentPadding: EdgeInsets.zero,
+      trailing: Icon(Icons.chevron_right, color: colorScheme.onSurfaceVariant),
+      tileColor: colorScheme.surfaceContainerHigh,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       onTap: () => presenter.onThemePickerPressed(),
     );
   }
