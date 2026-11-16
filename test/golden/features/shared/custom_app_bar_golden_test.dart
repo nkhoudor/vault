@@ -22,7 +22,6 @@ void main() {
   goldenTest(
     'custom_app_bar_with_settings',
     builder: () => CustomAppBarWidget(
-      title: 'Home',
       showSettings: true,
       presenter: CustomAppBarPresenter(
         CustomAppBarState.empty(),

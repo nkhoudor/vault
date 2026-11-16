@@ -401,15 +401,15 @@ This approach ensures reproducible builds and prevents unexpected breaking chang
 ### Splash screen
 
 App uses `flutter_native_splash` package. Configuration is in `flutter_native_splash.yaml`.
-- Set background `color` or `background_image` (line 40)
-- Optionally add center `image` for logo (line 66)
-- Configure Android 12+ separately (line 134+)
+- Source images are in `assets/splash/`: the mark, a smaller mark for Android 12+ (which clips it to a circle) and the app name shown at the bottom, each in a light and a dark version
+- The splash follows the system light or dark appearance, not the theme chosen in the app: the system draws it before any app code runs
 - Changes apply when you run `make setup`
 
 ### App icon
 
 App uses `flutter_launcher_icons` package.
-- Config: `flutter_launcher_icons.yaml`, source image: `assets/icon/icon.png`
+- Config: `flutter_launcher_icons.yaml`, source image: `assets/icon/icon.png`. Android builds its adaptive icon from `foreground.png` and `monochrome.png` next to it
+- Changes apply when you run `dart run flutter_launcher_icons`
 - For in-app icons: create `assets/icons/`, add the images, then run `make icons` to generate the `AppImages` class in `lib/utils/app_images.dart`
 
 ### App theme
