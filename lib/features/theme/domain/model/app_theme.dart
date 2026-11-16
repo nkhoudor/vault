@@ -1,13 +1,13 @@
 /// The color themes the user can choose from.
 enum AppTheme {
-  cozy,
-  catppuccin,
-  nord,
-  dracula,
-  tokyoNight,
-  gruvbox,
-  oneDark,
-  mint;
+  cobalt,
+  lavender,
+  mint,
+  clay,
+  honey,
+  rose,
+  glacier,
+  graphite;
 
-  static const defaultTheme = catppuccin;
+  static const defaultTheme = cobalt;
 }

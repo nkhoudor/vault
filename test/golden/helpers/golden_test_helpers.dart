@@ -138,7 +138,7 @@ class _GoldenTestApp extends StatelessWidget {
                     width: screenSizes[i].size.width,
                     height: screenSizes[i].size.height,
                     child: MaterialApp(
-                      theme: AppTheme.cozy.lightThemeData,
+                      theme: AppTheme.clay.lightThemeData,
                       debugShowCheckedModeBanner: false,
                       locale: supportedLocales.first,
                       localizationsDelegates: localizationsDelegates,
@@ -177,11 +177,11 @@ class _GoldenTestThemedApp extends StatelessWidget {
   static ThemeData _themeFor(ThemeMode mode) {
     switch (mode) {
       case ThemeMode.light:
-        return AppTheme.cozy.lightThemeData;
+        return AppTheme.clay.lightThemeData;
       case ThemeMode.dark:
-        return AppTheme.cozy.darkThemeData;
+        return AppTheme.clay.darkThemeData;
       case ThemeMode.system:
-        return AppTheme.cozy.lightThemeData;
+        return AppTheme.clay.lightThemeData;
     }
   }
 

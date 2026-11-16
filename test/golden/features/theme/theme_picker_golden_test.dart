@@ -14,9 +14,9 @@ void main() {
     builder: () {
       final mockRepo = MockThemePickerRepository();
       final themes = [
-        const Selectable.selected(AppTheme.cozy),
-        const Selectable.deselected(AppTheme.nord),
-        const Selectable.deselected(AppTheme.dracula),
+        const Selectable.selected(AppTheme.clay),
+        const Selectable.deselected(AppTheme.glacier),
+        const Selectable.deselected(AppTheme.rose),
       ];
       when(() => mockRepo.getThemesStream()).thenAnswer((_) => Stream.value(themes));
       return ThemePickerWidget(

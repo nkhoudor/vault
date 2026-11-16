@@ -4,12 +4,12 @@
   "system": "System",
   "light": "Light",
   "dark": "Dark",
-  "themeCozy": "Cozy",
-  "themeCatppuccin": "Catppuccin",
-  "themeNord": "Nord",
-  "themeDracula": "Dracula",
-  "themeTokyoNight": "Tokyo Night",
-  "themeGruvbox": "Gruvbox",
-  "themeOneDark": "One Dark",
-  "themeMint": "Mint"
+  "themeCobalt": "Cobalt",
+  "themeLavender": "Lavender",
+  "themeMint": "Mint",
+  "themeClay": "Clay",
+  "themeHoney": "Honey",
+  "themeRose": "Rose",
+  "themeGlacier": "Glacier",
+  "themeGraphite": "Graphite"
 }

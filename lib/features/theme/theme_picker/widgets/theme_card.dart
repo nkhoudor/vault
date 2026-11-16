@@ -12,14 +12,14 @@ class ThemeCard extends StatelessWidget {
   final VoidCallback onTap;
 
   String _name(ThemeLocalizations l10n) => switch (appTheme) {
-    AppTheme.cozy => l10n.themeCozy,
-    AppTheme.catppuccin => l10n.themeCatppuccin,
-    AppTheme.nord => l10n.themeNord,
-    AppTheme.dracula => l10n.themeDracula,
-    AppTheme.tokyoNight => l10n.themeTokyoNight,
-    AppTheme.gruvbox => l10n.themeGruvbox,
-    AppTheme.oneDark => l10n.themeOneDark,
+    AppTheme.cobalt => l10n.themeCobalt,
+    AppTheme.lavender => l10n.themeLavender,
     AppTheme.mint => l10n.themeMint,
+    AppTheme.clay => l10n.themeClay,
+    AppTheme.honey => l10n.themeHoney,
+    AppTheme.rose => l10n.themeRose,
+    AppTheme.glacier => l10n.themeGlacier,
+    AppTheme.graphite => l10n.themeGraphite,
   };
 
   @override
