@@ -1,7 +1,11 @@
 import 'package:app_core/features/otp/domain/model/otp.dart';
+import 'package:app_core/features/otp/otp_add_button/otp_add_button_presenter.dart';
+import 'package:app_core/features/otp/otp_add_button/otp_add_button_state.dart';
+import 'package:app_core/features/otp/otp_add_button/otp_add_button_widget.dart';
 import 'package:app_core/features/otp/otp_list/otp_list_presenter.dart';
 import 'package:app_core/features/otp/otp_list/otp_list_state.dart';
 import 'package:app_core/features/otp/otp_list/otp_list_widget.dart';
+import 'package:flutter/widgets.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../../mocks.dart';
@@ -41,6 +45,11 @@ final _manyItems = [
     ),
 ];
 
+Widget _addButton(BuildContext context, double expansion) => OtpAddButtonWidget(
+  presenter: OtpAddButtonPresenter(const OtpAddButtonState(), MockOtpAddButtonNavigator()),
+  expansion: expansion,
+);
+
 void main() {
   goldenTest(
     'otp_list_empty',
@@ -49,11 +58,12 @@ void main() {
       when(() => watchOtpList()).thenAnswer((_) => Stream.value([]));
       return OtpListWidget(
         presenter: OtpListPresenter(
-          OtpListState.empty(),
+          const OtpListState(otpList: []),
           MockOtpListNavigator(),
           MockOtpListRepository(),
           watchOtpList,
         ),
+        trailingBuilder: _addButton,
       );
     },
   );
@@ -70,6 +80,7 @@ void main() {
           MockOtpListRepository(),
           watchOtpList,
         ),
+        trailingBuilder: _addButton,
       );
     },
   );

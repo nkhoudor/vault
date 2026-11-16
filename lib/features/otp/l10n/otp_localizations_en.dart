@@ -163,5 +163,26 @@ class OtpLocalizationsEn extends OtpLocalizations {
   String get searchHint => 'Search accounts';
 
   @override
+  String get setupStepEnable => 'Turn on two-factor authentication';
+
+  @override
+  String get setupStepEnableHint => 'In the security settings of the service you want to protect';
+
+  @override
+  String get setupStepScan => 'Scan the QR code it shows';
+
+  @override
+  String get setupStepScanHint => 'Or type the setup key next to it';
+
+  @override
+  String get setupStepSignIn => 'Sign in with the code';
+
+  @override
+  String get setupStepSignInHint => 'The app shows a new one every 30 seconds';
+
+  @override
+  String get setupTitle => 'Set up your first code';
+
+  @override
   String get tapToCopy => 'Tap to copy';
 }

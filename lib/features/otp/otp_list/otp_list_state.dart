@@ -8,23 +8,23 @@ part '../../../generated/features/otp/otp_list/otp_list_state.freezed.dart';
 @freezed
 abstract class OtpListState with _$OtpListState {
   const factory OtpListState({
-    required Iterable<OtpDisplayable> otpList,
+    /// Null until the stored accounts have been read.
+    Iterable<OtpDisplayable>? otpList,
     @Default('') String searchQuery,
     String? selectedId,
   }) = _OtpListState;
 
   const OtpListState._();
 
-  /// Creates an initial empty [OtpListState].
-  factory OtpListState.empty() {
-    return const OtpListState(otpList: []);
-  }
-
   /// Creates a [OtpListState] from initial parameters.
   // ignore: avoid_unused_constructor_parameters
   factory OtpListState.fromInitialParams(OtpListStateParams? initialParams) {
-    return OtpListState.empty();
+    return const OtpListState();
   }
+
+  bool get isLoading => otpList == null;
+
+  bool get hasNoAccounts => otpList?.isEmpty ?? false;
 
   bool get isSearching => searchQuery.trim().isNotEmpty;
 
@@ -32,7 +32,7 @@ abstract class OtpListState with _$OtpListState {
   List<OtpDisplayable> get visibleEntries {
     final query = searchQuery.trim().toLowerCase();
     return [
-      for (final otp in otpList)
+      for (final otp in otpList ?? const <OtpDisplayable>[])
         if (query.isEmpty || otp.name.toLowerCase().contains(query) || otp.account.toLowerCase().contains(query)) otp,
     ];
   }

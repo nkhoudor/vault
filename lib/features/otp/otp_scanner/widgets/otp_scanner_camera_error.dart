@@ -14,7 +14,7 @@ class OtpScannerCameraError extends StatelessWidget {
     final theme = Theme.of(context);
 
     return ColoredBox(
-      color: theme.colorScheme.surfaceContainerHighest,
+      color: theme.colorScheme.surfaceContainerHigh,
       child: Center(
         child: Padding(
           padding: const EdgeInsets.all(24),

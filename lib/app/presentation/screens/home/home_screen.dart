@@ -11,9 +11,9 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      appBar: CustomAppBarWidget(showSettings: true),
-      body: OtpListWidget(trailing: OtpAddButtonWidget()),
+    return Scaffold(
+      appBar: const CustomAppBarWidget(showSettings: true),
+      body: OtpListWidget(trailingBuilder: (_, expansion) => OtpAddButtonWidget(expansion: expansion)),
     );
   }
 }

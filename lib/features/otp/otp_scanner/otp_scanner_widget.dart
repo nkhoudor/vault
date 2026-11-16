@@ -29,12 +29,12 @@ class _OtpScannerWidgetState extends State<OtpScannerWidget>
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Expanded(
-            child: cameraIssue == null
-                ? Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 8, 20, 0),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(28),
-                      child: Stack(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(20, 8, 20, 0),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(28),
+                child: cameraIssue == null
+                    ? Stack(
                         fit: StackFit.expand,
                         children: [
                           OtpScannerCamera(
@@ -43,10 +43,10 @@ class _OtpScannerWidgetState extends State<OtpScannerWidget>
                           ),
                           const OtpScannerFrame(),
                         ],
-                      ),
-                    ),
-                  )
-                : OtpScannerCameraError(issue: cameraIssue),
+                      )
+                    : OtpScannerCameraError(issue: cameraIssue),
+              ),
+            ),
           ),
           SafeArea(
             top: false,

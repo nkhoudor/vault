@@ -7,6 +7,7 @@ import 'package:app_core/features/otp/otp_list/otp_list_state.dart';
 import 'package:app_core/features/otp/otp_list/otp_list_widget.dart';
 import 'package:app_core/features/otp/otp_list/widgets/otp_account_chip.dart';
 import 'package:app_core/features/otp/otp_list/widgets/otp_dial.dart';
+import 'package:app_core/features/otp/otp_list/widgets/otp_setup_steps.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -68,6 +69,23 @@ void main() {
 
       expect(state.visibleEntries, isEmpty);
       expect(state.isSearching, isTrue);
+    });
+  });
+
+  group('OtpListState without accounts', () {
+    test('is loading until a list arrives', () {
+      const state = OtpListState();
+
+      expect(state.isLoading, isTrue);
+      expect(state.hasNoAccounts, isFalse);
+      expect(state.visibleEntries, isEmpty);
+    });
+
+    test('has no accounts once an empty list arrived', () {
+      const state = OtpListState(otpList: []);
+
+      expect(state.isLoading, isFalse);
+      expect(state.hasNoAccounts, isTrue);
     });
   });
 
@@ -137,13 +155,23 @@ void main() {
   });
 
   group('OtpListWidget', () {
-    Future<void> pumpList(WidgetTester tester) => tester.pumpWidget(
+    Future<void> pumpList(WidgetTester tester, {OtpListPresenter? presenter}) => tester.pumpWidget(
       MaterialApp(
         localizationsDelegates: localizationsDelegates,
         supportedLocales: supportedLocales,
-        home: Scaffold(body: OtpListWidget(presenter: buildPresenter())),
+        home: Scaffold(
+          body: OtpListWidget(
+            presenter: presenter ?? buildPresenter(),
+            trailingBuilder: (_, expansion) => Text('expansion $expansion'),
+          ),
+        ),
       ),
     );
+
+    OtpListPresenter presenterFor(Stream<Iterable<OtpDisplayable>> lists) {
+      when(() => watchOtpList()).thenAnswer((_) => lists);
+      return OtpListPresenter(const OtpListState(), MockOtpListNavigator(), repository, watchOtpList);
+    }
 
     Finder chip(String name) => find.widgetWithText(OtpAccountChip, name);
 
@@ -153,6 +181,57 @@ void main() {
       await tester.longPress(chip(name));
       await tester.pumpAndSettle();
     }
+
+    testWidgets('shows neither the steps nor the trailing widget until the accounts have been read', (tester) async {
+      final lists = StreamController<Iterable<OtpDisplayable>>();
+      addTearDown(lists.close);
+
+      await pumpList(tester, presenter: presenterFor(lists.stream));
+
+      expect(find.byType(OtpSetupSteps), findsNothing);
+      expect(find.textContaining('expansion'), findsNothing);
+    });
+
+    testWidgets('without accounts it shows the setup steps and gives the trailing widget the whole row', (
+      tester,
+    ) async {
+      await pumpList(tester, presenter: presenterFor(Stream.value(const [])));
+      await tester.pump();
+
+      expect(find.text('Set up your first code'), findsOneWidget);
+      expect(find.text('expansion 1.0'), findsOneWidget);
+      expect(find.byType(TextField), findsNothing);
+      expect(tester.getSize(find.text('expansion 1.0')).width, 800 - 40);
+    });
+
+    testWidgets('with accounts the trailing widget shares the row with the search field', (tester) async {
+      await pumpList(tester);
+
+      expect(find.byType(OtpSetupSteps), findsNothing);
+      expect(find.text('expansion 0.0'), findsOneWidget);
+      expect(tester.getSize(find.text('expansion 0.0')).width, 52);
+    });
+
+    testWidgets('deleting the last account brings the setup steps back', (tester) async {
+      final lists = StreamController<Iterable<OtpDisplayable>>();
+      addTearDown(lists.close);
+      await pumpList(tester, presenter: presenterFor(lists.stream));
+      lists.add(_items);
+      await tester.pumpAndSettle();
+      expect(find.byType(OtpDial), findsOneWidget);
+
+      lists.add(const []);
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 150));
+
+      expect(find.byType(OtpDial), findsOneWidget);
+      expect(find.byType(OtpSetupSteps), findsOneWidget);
+
+      await tester.pumpAndSettle();
+
+      expect(find.byType(OtpDial), findsNothing);
+      expect(find.text('expansion 1.0'), findsOneWidget);
+    });
 
     testWidgets('the dial shows the first entry', (tester) async {
       await pumpList(tester);

@@ -5,6 +5,7 @@ Vault is a two-factor authenticator app. It stores the setup keys of your accoun
 ## Features
 
 - Add an account by scanning its QR code or by typing its setup key
+- A three-step guide to the first code on a fresh install
 - Live codes with a countdown ring; tap a code to copy it
 - SHA1, SHA256 and SHA512 codes with 6 to 8 digits and custom periods, read from the QR code
 - Search by service or account name
