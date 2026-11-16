@@ -17,7 +17,6 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_secure_storage: 10.0.0
-  flutter_slidable: 4.0.3
   freezed_annotation: 3.1.0
   get_it: 8.2.0
   go_router: 16.3.0
@@ -51,3 +50,11 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   generate: true
+  fonts:
+    - family: Sora
+      fonts:
+        - asset: assets/fonts/Sora-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Sora-Regular.ttf
+        - asset: assets/fonts/Sora-SemiBold.ttf
+          weight: 600

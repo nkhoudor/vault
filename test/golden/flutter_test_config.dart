@@ -29,6 +29,11 @@ Future<void> _loadMaterialFonts() async {
       '$fontsDir/Roboto-MediumItalic.ttf',
       '$fontsDir/Roboto-BoldItalic.ttf',
     ]),
+    _loadFont('Sora', [
+      'assets/fonts/Sora-Regular.ttf',
+      'assets/fonts/Sora-SemiBold.ttf',
+      'assets/fonts/Sora-Light.ttf',
+    ]),
     _loadFont('MaterialIcons', ['$fontsDir/MaterialIcons-Regular.otf']),
   ]);
 }

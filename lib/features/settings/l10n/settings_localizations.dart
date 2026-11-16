@@ -100,7 +100,7 @@ abstract class SettingsLocalizations {
   /// No description provided for @themePicker.
   ///
   /// In en, this message translates to:
-  /// **'Theme Picker'**
+  /// **'Color theme'**
   String get themePicker;
 
   /// No description provided for @themePickerSubtitle.

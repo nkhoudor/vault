@@ -5,7 +5,8 @@ import 'package:app_core/features/otp/domain/model/otp.dart';
 import 'package:app_core/features/otp/otp_list/otp_list_presenter.dart';
 import 'package:app_core/features/otp/otp_list/otp_list_state.dart';
 import 'package:app_core/features/otp/otp_list/otp_list_widget.dart';
-import 'package:app_core/features/otp/otp_list/widgets/otp_slidable_list_item.dart';
+import 'package:app_core/features/otp/otp_list/widgets/otp_account_chip.dart';
+import 'package:app_core/features/otp/otp_list/widgets/otp_dial.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -70,6 +71,26 @@ void main() {
     });
   });
 
+  group('OtpListState.selectedEntry', () {
+    test('is the first entry until one is picked', () {
+      expect(OtpListState(otpList: _items).selectedEntry, _items[0]);
+    });
+
+    test('is the picked entry while it is visible', () {
+      expect(OtpListState(otpList: _items, selectedId: 'id-GitLab').selectedEntry, _items[2]);
+    });
+
+    test('is the first visible entry when the picked one is filtered out', () {
+      final state = OtpListState(otpList: _items, selectedId: 'id-Google', searchQuery: 'git');
+
+      expect(state.selectedEntry, _items[0]);
+    });
+
+    test('is null when nothing is visible', () {
+      expect(OtpListState(otpList: _items, searchQuery: 'aws').selectedEntry, isNull);
+    });
+  });
+
   group('OtpListPresenter', () {
     test('onSearchChanged updates the query and keeps the list', () {
       final presenter = buildPresenter()..onSearchChanged('goo');
@@ -96,6 +117,12 @@ void main() {
       expect(presenter.state.searchQuery, 'goo');
     });
 
+    test('onAccountSelected makes that entry the selected one', () {
+      final presenter = buildPresenter()..onAccountSelected(_items[1]);
+
+      expect(presenter.state.selectedEntry, _items[1]);
+    });
+
     test('onCodeTapped copies the code of the entry', () async {
       await buildPresenter().onCodeTapped(_items[0]);
 
@@ -118,21 +145,51 @@ void main() {
       ),
     );
 
-    Future<void> swipeAndTapDelete(WidgetTester tester, String name) async {
-      await tester.drag(find.text(name), const Offset(-300, 0));
-      await tester.pumpAndSettle();
-      await tester.tap(find.text('Delete'));
+    Finder chip(String name) => find.widgetWithText(OtpAccountChip, name);
+
+    Finder inDial(String text) => find.descendant(of: find.byType(OtpDial), matching: find.text(text));
+
+    Future<void> longPress(WidgetTester tester, String name) async {
+      await tester.longPress(chip(name));
       await tester.pumpAndSettle();
     }
 
-    testWidgets('tapping an entry copies its code and says so', (tester) async {
+    testWidgets('the dial shows the first entry', (tester) async {
       await pumpList(tester);
 
-      await tester.tap(find.text('Google'));
+      expect(inDial('GitHub'), findsOneWidget);
+      expect(inDial('work@example.com'), findsOneWidget);
+    });
+
+    testWidgets('tapping an account shows it in the dial', (tester) async {
+      await pumpList(tester);
+
+      await tester.tap(chip('Google'));
+      await tester.pump();
+
+      expect(inDial('Google'), findsOneWidget);
+      verifyNever(() => repository.copyCode(any()));
+    });
+
+    testWidgets('tapping the dial copies its code and says so', (tester) async {
+      await pumpList(tester);
+
+      await tester.tap(find.byType(OtpDial));
       await tester.pump();
 
       verify(() => repository.copyCode('123456')).called(1);
       expect(find.text('Code copied to clipboard'), findsOneWidget);
+    });
+
+    testWidgets('the dial falls back to the first match when the picked account is filtered out', (tester) async {
+      await pumpList(tester);
+      await tester.tap(chip('Google'));
+      await tester.pump();
+
+      await tester.enterText(find.byType(TextField), 'gitlab');
+      await tester.pumpAndSettle();
+
+      expect(inDial('GitLab'), findsOneWidget);
     });
 
     testWidgets('typing in the search field filters the list', (tester) async {
@@ -141,8 +198,8 @@ void main() {
       await tester.enterText(find.byType(TextField), 'git');
       await tester.pumpAndSettle();
 
-      expect(find.byType(OtpSlidableListItem), findsNWidgets(2));
-      expect(find.text('Google'), findsNothing);
+      expect(find.byType(OtpAccountChip), findsNWidgets(2));
+      expect(chip('Google'), findsNothing);
     });
 
     testWidgets('the clear button empties the field and shows every entry again', (tester) async {
@@ -154,7 +211,7 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(tester.widget<TextField>(find.byType(TextField)).controller!.text, isEmpty);
-      expect(find.byType(OtpSlidableListItem), findsNWidgets(3));
+      expect(find.byType(OtpAccountChip), findsNWidgets(3));
       expect(find.byIcon(Icons.clear), findsNothing);
     });
 
@@ -172,7 +229,7 @@ void main() {
       await tester.enterText(find.byType(TextField), 'gitlab');
       await tester.pumpAndSettle();
 
-      await swipeAndTapDelete(tester, 'GitLab');
+      await longPress(tester, 'GitLab');
       expect(find.text('Delete this code?'), findsOneWidget);
       await tester.tap(find.widgetWithText(FilledButton, 'Delete'));
       await tester.pumpAndSettle();
@@ -199,7 +256,7 @@ void main() {
     testWidgets('the confirmation names the service and the account', (tester) async {
       await pumpList(tester);
 
-      await swipeAndTapDelete(tester, 'GitHub');
+      await longPress(tester, 'GitHub');
 
       expect(find.textContaining('GitHub (work@example.com)'), findsOneWidget);
     });
@@ -207,7 +264,7 @@ void main() {
     testWidgets('cancelling the confirmation deletes nothing', (tester) async {
       await pumpList(tester);
 
-      await swipeAndTapDelete(tester, 'Google');
+      await longPress(tester, 'Google');
       await tester.tap(find.text('Cancel'));
       await tester.pumpAndSettle();
 

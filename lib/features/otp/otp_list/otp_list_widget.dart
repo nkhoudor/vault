@@ -2,18 +2,21 @@ import 'package:app_core/features/otp/domain/model/otp.dart';
 import 'package:app_core/features/otp/l10n/otp_localizations.dart';
 import 'package:app_core/features/otp/otp_list/otp_list_presenter.dart';
 import 'package:app_core/features/otp/otp_list/otp_list_state.dart';
+import 'package:app_core/features/otp/otp_list/widgets/otp_account_grid.dart';
 import 'package:app_core/features/otp/otp_list/widgets/otp_delete_dialog.dart';
+import 'package:app_core/features/otp/otp_list/widgets/otp_dial.dart';
 import 'package:app_core/features/otp/otp_list/widgets/otp_search_field.dart';
-import 'package:app_core/features/otp/otp_list/widgets/otp_slidable_list_item.dart';
 import 'package:app_core/utils/mvp_extensions.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 
 class OtpListWidget extends StatefulWidget with MaybeHasPresenter<OtpListPresenter> {
-  const OtpListWidget({this.presenter, super.key});
+  const OtpListWidget({this.presenter, this.trailing, super.key});
 
   @override
   final OtpListPresenter? presenter;
+
+  /// Shown at the bottom, after the search field.
+  final Widget? trailing;
 
   @override
   State<OtpListWidget> createState() => _OtpListWidgetState();
@@ -27,17 +30,11 @@ class _OtpListWidgetState extends State<OtpListWidget>
     await presenter.onCodeTapped(otp);
     if (mounted) {
       messenger.clearSnackBars();
-      messenger.showSnackBar(
-        SnackBar(
-          content: Text(l10n.codeCopiedToClipboard),
-          duration: const Duration(seconds: 1),
-          behavior: SnackBarBehavior.floating,
-        ),
-      );
+      messenger.showSnackBar(SnackBar(content: Text(l10n.codeCopiedToClipboard), duration: const Duration(seconds: 1)));
     }
   }
 
-  Future<void> _onDeletePressed(OtpDisplayable otp) async {
+  Future<void> _onAccountLongPressed(OtpDisplayable otp) async {
     final confirmed = await OtpDeleteDialog.show(context, name: otp.label);
     if (confirmed) {
       await presenter.onDeleteConfirmed(otp);
@@ -47,43 +44,56 @@ class _OtpListWidgetState extends State<OtpListWidget>
   @override
   Widget build(BuildContext context) => stateObserver(
     builder: (context, state) {
-      final entries = state.visibleEntries;
+      final selected = state.selectedEntry;
 
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          if (state.otpList.isNotEmpty) OtpSearchField(query: state.searchQuery, onChanged: presenter.onSearchChanged),
-          Expanded(
-            child: entries.isEmpty && state.isSearching
-                ? Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(24),
-                      child: Text(
-                        context.l10n.noMatchingAccounts,
-                        style: Theme.of(context).textTheme.bodyLarge,
-                        textAlign: TextAlign.center,
+      return SafeArea(
+        top: false,
+        minimum: const EdgeInsets.only(bottom: 16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Expanded(
+              child: selected == null
+                  ? Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(24),
+                        child: Text(
+                          state.isSearching ? context.l10n.noMatchingAccounts : '',
+                          style: Theme.of(context).textTheme.bodyLarge,
+                          textAlign: TextAlign.center,
+                        ),
                       ),
-                    ),
-                  )
-                : SlidableAutoCloseBehavior(
-                    child: ListView.separated(
-                      padding: const EdgeInsets.only(top: 8, bottom: 24),
+                    )
+                  : ListView(
+                      padding: const EdgeInsets.fromLTRB(20, 16, 20, 24),
                       keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-                      itemCount: entries.length,
-                      separatorBuilder: (context, index) => const Divider(height: 1, indent: 16, endIndent: 16),
-                      itemBuilder: (context, index) {
-                        final otp = entries[index];
-                        return OtpSlidableListItem(
-                          key: ValueKey(otp.id),
-                          otp: otp,
-                          onTap: () => _onCodeTapped(otp),
-                          onDeletePressed: () => _onDeletePressed(otp),
-                        );
-                      },
+                      children: [
+                        OtpDial(otp: selected, onTap: () => _onCodeTapped(selected)),
+                        const SizedBox(height: 20),
+                        OtpAccountGrid(
+                          entries: state.visibleEntries,
+                          selectedId: selected.id,
+                          onSelected: presenter.onAccountSelected,
+                          onLongPressed: _onAccountLongPressed,
+                        ),
+                      ],
                     ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: state.otpList.isEmpty
+                        ? const SizedBox.shrink()
+                        : OtpSearchField(query: state.searchQuery, onChanged: presenter.onSearchChanged),
                   ),
-          ),
-        ],
+                  if (widget.trailing case final trailing?) ...[const SizedBox(width: 12), trailing],
+                ],
+              ),
+            ),
+          ],
+        ),
       );
     },
   );

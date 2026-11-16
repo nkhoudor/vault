@@ -9,7 +9,7 @@ class ThemeLocalizationsEn extends ThemeLocalizations {
   ThemeLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get themeMode => 'Theme Mode';
+  String get themeMode => 'Appearance';
 
   @override
   String get system => 'System';
@@ -40,4 +40,7 @@ class ThemeLocalizationsEn extends ThemeLocalizations {
 
   @override
   String get themeOneDark => 'One Dark';
+
+  @override
+  String get themeMint => 'Mint';
 }

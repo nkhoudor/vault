@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "themeMode": "Theme Mode",
+  "themeMode": "Appearance",
   "system": "System",
   "light": "Light",
   "dark": "Dark",
@@ -10,5 +10,6 @@
   "themeDracula": "Dracula",
   "themeTokyoNight": "Tokyo Night",
   "themeGruvbox": "Gruvbox",
-  "themeOneDark": "One Dark"
+  "themeOneDark": "One Dark",
+  "themeMint": "Mint"
 }

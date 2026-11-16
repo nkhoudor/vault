@@ -29,6 +29,18 @@ final _items = [
   ),
 ];
 
+final _manyItems = [
+  for (final name in ['GitHub', 'Google', 'Slack', 'Amazon', 'Dropbox', 'Figma', 'Notion', 'Proton'])
+    OtpDisplayable(
+      id: name,
+      name: name,
+      account: 'user@example.com',
+      code: '123456',
+      createdAt: _expiredCreatedAt,
+      expiresAt: _expiredExpiresAt,
+    ),
+];
+
 void main() {
   goldenTest(
     'otp_list_empty',
@@ -54,6 +66,22 @@ void main() {
       return OtpListWidget(
         presenter: OtpListPresenter(
           OtpListState(otpList: _items),
+          MockOtpListNavigator(),
+          MockOtpListRepository(),
+          watchOtpList,
+        ),
+      );
+    },
+  );
+
+  goldenTest(
+    'otp_list_many_accounts',
+    builder: () {
+      final watchOtpList = MockWatchOtpListUseCase();
+      when(() => watchOtpList()).thenAnswer((_) => Stream.value(_manyItems));
+      return OtpListWidget(
+        presenter: OtpListPresenter(
+          OtpListState(otpList: _manyItems, selectedId: 'Slack'),
           MockOtpListNavigator(),
           MockOtpListRepository(),
           watchOtpList,

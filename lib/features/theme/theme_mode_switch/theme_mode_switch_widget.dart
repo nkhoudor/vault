@@ -20,31 +20,18 @@ class _ThemeModeSwitchWidgetState extends State<ThemeModeSwitchWidget>
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final iconColor = theme.colorScheme.onSurface;
     final l10n = context.l10n;
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Text(l10n.themeMode, style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600)),
+        Text(l10n.themeMode, style: theme.textTheme.labelLarge?.copyWith(color: theme.colorScheme.onSurfaceVariant)),
         const SizedBox(height: 12),
         stateObserver(
           builder: (context, state) => SegmentedButton<AppThemeMode>(
             segments: [
-              ButtonSegment<AppThemeMode>(
-                value: AppThemeMode.system,
-                label: Text(l10n.system),
-                icon: Icon(Icons.brightness_auto, color: iconColor),
-              ),
-              ButtonSegment<AppThemeMode>(
-                value: AppThemeMode.light,
-                label: Text(l10n.light),
-                icon: Icon(Icons.light_mode, color: iconColor),
-              ),
-              ButtonSegment<AppThemeMode>(
-                value: AppThemeMode.dark,
-                label: Text(l10n.dark),
-                icon: Icon(Icons.dark_mode, color: iconColor),
-              ),
+              ButtonSegment<AppThemeMode>(value: AppThemeMode.system, label: Text(l10n.system)),
+              ButtonSegment<AppThemeMode>(value: AppThemeMode.light, label: Text(l10n.light)),
+              ButtonSegment<AppThemeMode>(value: AppThemeMode.dark, label: Text(l10n.dark)),
             ],
             selected: {state.themeMode},
             onSelectionChanged: (newSelection) => presenter.onThemeModeSelected(newSelection.first),

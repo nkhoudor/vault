@@ -12,7 +12,7 @@ class SettingsLocalizationsEn extends SettingsLocalizations {
   String get settings => 'Settings';
 
   @override
-  String get themePicker => 'Theme Picker';
+  String get themePicker => 'Color theme';
 
   @override
   String get themePickerSubtitle => 'Choose your color theme';

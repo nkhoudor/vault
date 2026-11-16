@@ -6,7 +6,8 @@ enum AppTheme {
   dracula,
   tokyoNight,
   gruvbox,
-  oneDark;
+  oneDark,
+  mint;
 
   static const defaultTheme = catppuccin;
 }

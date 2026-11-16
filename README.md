@@ -8,8 +8,9 @@ Vault is a two-factor authenticator app. It stores the setup keys of your accoun
 - Live codes with a countdown ring; tap a code to copy it
 - SHA1, SHA256 and SHA512 codes with 6 to 8 digits and custom periods, read from the QR code
 - Search by service or account name
-- Swipe to delete, with a confirmation
-- Seven color themes, each with light and dark modes
+- One code at a time in a countdown dial, with every account a tap away in a grid that fits the screen
+- Long-press an account to delete it, with a confirmation
+- Eight color themes, each with light and dark modes
 
 Setup keys are stored only on the device, in the iOS Keychain or Android Keystore through `flutter_secure_storage`. The app has no backend and no user account. Codes are computed on the device.
 
@@ -297,7 +298,7 @@ Everyday commands are grouped in the `Makefile`; run `make` to list them. They u
 Golden tests use the `goldenTest()` helper from `test/golden/helpers/golden_test_helpers.dart`.
 All specified screen sizes are rendered **side by side** in a single golden image.
 
-**Coverage:** theme (theme picker, theme mode switch), settings (theme picker), shared (custom app bar), otp (list empty, with items and with no search matches; manual entry empty and with errors).
+**Coverage:** theme (theme picker, theme mode switch), settings (theme picker), shared (custom app bar), otp (list empty, with items, with many accounts and with no search matches; manual entry empty and with errors).
 
 ```dart
 import '../helpers/golden_test_helpers.dart';
@@ -415,6 +416,7 @@ App uses `flutter_launcher_icons` package.
 App uses Material 3 with predefined themes. `AppTheme` in `lib/features/theme/domain/model/app_theme.dart` lists them, and `lib/features/theme/themes/app_theme_data.dart` turns each one into Flutter's `ThemeData`.
 - Define new themes by adding an entry to `AppTheme`, its color schemes to `AppThemeData` and its name to the theme feature's `en.arb`
 - Each theme includes light/dark color schemes and text theme
+- Shapes, component styles and the bundled Sora font (`assets/fonts/`) are the same in every theme and live in `AppThemeData`
 - The default theme is `AppTheme.defaultTheme`
 
 ## License

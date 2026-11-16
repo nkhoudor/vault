@@ -34,24 +34,20 @@ class _OtpSearchFieldState extends State<OtpSearchField> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
-      child: SearchBar(
-        controller: _controller,
-        onChanged: widget.onChanged,
-        hintText: context.l10n.searchHint,
-        textInputAction: TextInputAction.search,
-        elevation: const WidgetStatePropertyAll(0),
-        leading: const Icon(Icons.search),
-        trailing: [
-          if (widget.query.isNotEmpty)
-            IconButton(
-              onPressed: () => widget.onChanged(''),
-              icon: const Icon(Icons.clear),
-              tooltip: MaterialLocalizations.of(context).clearButtonTooltip,
-            ),
-        ],
-      ),
+    return SearchBar(
+      controller: _controller,
+      onChanged: widget.onChanged,
+      hintText: context.l10n.searchHint,
+      textInputAction: TextInputAction.search,
+      leading: const Icon(Icons.search),
+      trailing: [
+        if (widget.query.isNotEmpty)
+          IconButton(
+            onPressed: () => widget.onChanged(''),
+            icon: const Icon(Icons.clear),
+            tooltip: MaterialLocalizations.of(context).clearButtonTooltip,
+          ),
+      ],
     );
   }
 }

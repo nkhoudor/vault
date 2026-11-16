@@ -15,7 +15,13 @@ class OtpLocalizationsEn extends OtpLocalizations {
   String get addOptionEnterManually => 'Enter setup key';
 
   @override
+  String get addOptionEnterManuallyHint => 'Type the key shown next to the QR code';
+
+  @override
   String get addOptionScanQrCode => 'Scan QR code';
+
+  @override
+  String get addOptionScanQrCodeHint => 'Use the camera on the code a service shows';
 
   @override
   String get cancel => 'Cancel';
@@ -95,4 +101,7 @@ class OtpLocalizationsEn extends OtpLocalizations {
 
   @override
   String get searchHint => 'Search accounts';
+
+  @override
+  String get tapToCopy => 'Tap to copy';
 }
