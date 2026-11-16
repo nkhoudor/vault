@@ -25,6 +25,8 @@ dependencies:
   logger: 2.6.2
   mobile_scanner: 7.5.0
   otp: 3.2.0
+  pdf: 3.12.0
+  printing: 5.14.3
   rx_shared_preferences: 4.0.0
   rxdart: 0.28.0
   uuid: 4.5.1
@@ -50,6 +52,8 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   generate: true
+  assets:
+    - assets/fonts/NotoSans-Regular.ttf
   fonts:
     - family: Sora
       fonts:

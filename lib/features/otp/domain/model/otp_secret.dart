@@ -27,6 +27,8 @@ abstract class OtpSecret with _$OtpSecret {
   static const defaultDigits = 6;
   static const defaultAlgorithm = OtpAlgorithm.sha1;
 
+  bool get hasDefaultParameters => period == defaultPeriod && digits == defaultDigits && algorithm == defaultAlgorithm;
+
   /// When the code valid at [now] started being valid.
   DateTime codeCreatedAt(DateTime now) {
     final seconds = now.millisecondsSinceEpoch ~/ 1000;

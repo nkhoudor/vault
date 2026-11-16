@@ -1,4 +1,5 @@
 import 'package:app_core/app/presentation/routes/app_routes.dart';
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 /// Central navigation service for navigation.
@@ -17,6 +18,14 @@ class NavigationService {
 
   /// Replace the current route using AppRoute.
   Future<T?> pushReplacementRoute<T extends Object?>(AppRoute route) => _router.pushReplacementNamed<T>(route.name);
+
+  /// Show [builder] in a bottom sheet over the current route.
+  Future<T?> showSheet<T extends Object?>(WidgetBuilder builder) => showModalBottomSheet<T>(
+    context: _router.routerDelegate.navigatorKey.currentContext!,
+    isScrollControlled: true,
+    showDragHandle: true,
+    builder: builder,
+  );
 
   /// Navigate back. Returns true if a route was popped.
   bool goBack() {

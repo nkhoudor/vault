@@ -1,6 +1,9 @@
 import 'package:app_core/app/presentation/navigation_service.dart';
 import 'package:app_core/app/presentation/routes/app_routes.dart';
 import 'package:app_core/features/otp/otp_add_button/otp_add_button_navigator.dart';
+import 'package:app_core/features/otp/otp_backup_preview/otp_backup_preview_navigator.dart';
+import 'package:app_core/features/otp/otp_backup_preview/otp_backup_preview_widget.dart';
+import 'package:app_core/features/otp/otp_backup_print/otp_backup_print_navigator.dart';
 import 'package:app_core/features/otp/otp_list/otp_list_navigator.dart';
 import 'package:app_core/features/otp/otp_manual_entry/otp_manual_entry_navigator.dart';
 import 'package:app_core/features/otp/otp_scanner/otp_scanner_navigator.dart';
@@ -15,6 +18,8 @@ class AppNavigator
         CustomAppBarNavigator,
         SettingsThemePickerNavigator,
         OtpAddButtonNavigator,
+        OtpBackupPreviewNavigator,
+        OtpBackupPrintNavigator,
         OtpListNavigator,
         OtpScannerNavigator,
         OtpManualEntryNavigator,
@@ -44,6 +49,10 @@ class AppNavigator
   Future<void> navigateToOtpManualEntry() async {
     _navigationService.goRoute(const AppRoute.otpManualEntry());
   }
+
+  @override
+  Future<void> navigateToOtpBackupPreview() =>
+      _navigationService.showSheet<void>((_) => const OtpBackupPreviewWidget());
 
   @override
   Future<void> navigateBack() async {

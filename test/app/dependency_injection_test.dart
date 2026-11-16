@@ -1,10 +1,16 @@
 import 'package:app_core/app/data/repository/flutter_system_clipboard.dart';
+import 'package:app_core/app/data/repository/system_document_printer.dart';
 import 'package:app_core/app/presentation/app_navigator.dart';
 import 'package:app_core/core/clipboard/system_clipboard.dart';
+import 'package:app_core/core/printing/document_printer.dart';
 import 'package:app_core/di/app_component.dart';
 import 'package:app_core/features/otp/data/repository/otp_repository_impl.dart';
 import 'package:app_core/features/otp/otp_add_button/otp_add_button_navigator.dart';
 import 'package:app_core/features/otp/otp_add_button/otp_add_button_presenter.dart';
+import 'package:app_core/features/otp/otp_backup_preview/domain/repository/otp_backup_preview_repository.dart';
+import 'package:app_core/features/otp/otp_backup_preview/otp_backup_preview_navigator.dart';
+import 'package:app_core/features/otp/otp_backup_print/domain/repository/otp_backup_print_repository.dart';
+import 'package:app_core/features/otp/otp_backup_print/otp_backup_print_navigator.dart';
 import 'package:app_core/features/otp/otp_list/domain/repository/otp_list_repository.dart';
 import 'package:app_core/features/otp/otp_list/otp_list_navigator.dart';
 import 'package:app_core/features/otp/otp_manual_entry/domain/repository/otp_manual_entry_repository.dart';
@@ -32,10 +38,12 @@ void main() {
     expect(DI.get<OtpAddButtonNavigator>(), isA<AppNavigator>());
     expect(DI.get<OtpScannerNavigator>(), isA<AppNavigator>());
     expect(DI.get<OtpManualEntryNavigator>(), isA<AppNavigator>());
+    expect(DI.get<OtpBackupPrintNavigator>(), isA<AppNavigator>());
   });
 
   test('the navigators without actions are implemented by the app navigator too', () {
     expect(DI.get<OtpListNavigator>(), isA<AppNavigator>());
+    expect(DI.get<OtpBackupPreviewNavigator>(), isA<AppNavigator>());
     expect(DI.get<ThemeBuilderNavigator>(), isA<AppNavigator>());
     expect(DI.get<ThemeModeSwitchNavigator>(), isA<AppNavigator>());
     expect(DI.get<ThemePickerNavigator>(), isA<AppNavigator>());
@@ -46,6 +54,10 @@ void main() {
     expect(DI.get<CustomAppBarPresenter>(), isNotNull);
   });
 
+  test('the printer is the system print dialog', () {
+    expect(DI.get<DocumentPrinter>(), isA<SystemDocumentPrinter>());
+  });
+
   test('the clipboard is the device clipboard', () {
     expect(DI.get<SystemClipboard>(), isA<FlutterSystemClipboard>());
   });
@@ -54,6 +66,8 @@ void main() {
     expect(DI.get<OtpListRepository>(), isA<OtpRepositoryImpl>());
     expect(DI.get<OtpScannerRepository>(), isA<OtpRepositoryImpl>());
     expect(DI.get<OtpManualEntryRepository>(), isA<OtpRepositoryImpl>());
+    expect(DI.get<OtpBackupPrintRepository>(), isA<OtpRepositoryImpl>());
+    expect(DI.get<OtpBackupPreviewRepository>(), isA<OtpRepositoryImpl>());
   });
 
   test('the OTP repositories are one shared instance', () {
