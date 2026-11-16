@@ -23,7 +23,7 @@ const mintLightColorScheme = ColorScheme(
   onSurface: Color(0xff10201a),
   onSurfaceVariant: Color(0xff3f4f48),
   outline: Color(0xff6f857c),
-  outlineVariant: Color(0xffc2d8cf),
+  outlineVariant: Color(0xffb3cdc2),
   shadow: Color(0xff000000),
   scrim: Color(0xff000000),
   inverseSurface: Color(0xff10201a),

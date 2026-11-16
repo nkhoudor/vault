@@ -115,53 +115,53 @@ abstract class ThemeLocalizations {
   /// **'Dark'**
   String get dark;
 
-  /// No description provided for @themeCozy.
+  /// No description provided for @themeCobalt.
   ///
   /// In en, this message translates to:
-  /// **'Cozy'**
-  String get themeCozy;
+  /// **'Cobalt'**
+  String get themeCobalt;
 
-  /// No description provided for @themeCatppuccin.
+  /// No description provided for @themeLavender.
   ///
   /// In en, this message translates to:
-  /// **'Catppuccin'**
-  String get themeCatppuccin;
-
-  /// No description provided for @themeNord.
-  ///
-  /// In en, this message translates to:
-  /// **'Nord'**
-  String get themeNord;
-
-  /// No description provided for @themeDracula.
-  ///
-  /// In en, this message translates to:
-  /// **'Dracula'**
-  String get themeDracula;
-
-  /// No description provided for @themeTokyoNight.
-  ///
-  /// In en, this message translates to:
-  /// **'Tokyo Night'**
-  String get themeTokyoNight;
-
-  /// No description provided for @themeGruvbox.
-  ///
-  /// In en, this message translates to:
-  /// **'Gruvbox'**
-  String get themeGruvbox;
-
-  /// No description provided for @themeOneDark.
-  ///
-  /// In en, this message translates to:
-  /// **'One Dark'**
-  String get themeOneDark;
+  /// **'Lavender'**
+  String get themeLavender;
 
   /// No description provided for @themeMint.
   ///
   /// In en, this message translates to:
   /// **'Mint'**
   String get themeMint;
+
+  /// No description provided for @themeClay.
+  ///
+  /// In en, this message translates to:
+  /// **'Clay'**
+  String get themeClay;
+
+  /// No description provided for @themeHoney.
+  ///
+  /// In en, this message translates to:
+  /// **'Honey'**
+  String get themeHoney;
+
+  /// No description provided for @themeRose.
+  ///
+  /// In en, this message translates to:
+  /// **'Rose'**
+  String get themeRose;
+
+  /// No description provided for @themeGlacier.
+  ///
+  /// In en, this message translates to:
+  /// **'Glacier'**
+  String get themeGlacier;
+
+  /// No description provided for @themeGraphite.
+  ///
+  /// In en, this message translates to:
+  /// **'Graphite'**
+  String get themeGraphite;
 }
 
 class _ThemeLocalizationsDelegate extends LocalizationsDelegate<ThemeLocalizations> {

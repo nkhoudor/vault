@@ -21,26 +21,26 @@ class ThemeLocalizationsEn extends ThemeLocalizations {
   String get dark => 'Dark';
 
   @override
-  String get themeCozy => 'Cozy';
+  String get themeCobalt => 'Cobalt';
 
   @override
-  String get themeCatppuccin => 'Catppuccin';
-
-  @override
-  String get themeNord => 'Nord';
-
-  @override
-  String get themeDracula => 'Dracula';
-
-  @override
-  String get themeTokyoNight => 'Tokyo Night';
-
-  @override
-  String get themeGruvbox => 'Gruvbox';
-
-  @override
-  String get themeOneDark => 'One Dark';
+  String get themeLavender => 'Lavender';
 
   @override
   String get themeMint => 'Mint';
+
+  @override
+  String get themeClay => 'Clay';
+
+  @override
+  String get themeHoney => 'Honey';
+
+  @override
+  String get themeRose => 'Rose';
+
+  @override
+  String get themeGlacier => 'Glacier';
+
+  @override
+  String get themeGraphite => 'Graphite';
 }

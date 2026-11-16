@@ -11,9 +11,19 @@ Vault is a two-factor authenticator app. It stores the setup keys of your accoun
 - One code at a time in a countdown dial, with every account a tap away in a grid that fits the screen
 - Long-press an account to delete it, with a confirmation
 - Print a backup sheet, or save it as a PDF: a QR code and the setup key of every account, readable by any authenticator app
-- Eight color themes, each with light and dark modes
+- Eight color themes, one for each color family, each with light and dark modes
 
 Setup keys are stored only on the device, in the iOS Keychain or Android Keystore through `flutter_secure_storage`. The app has no backend and no user account. Codes are computed on the device.
+
+## Themes
+
+Cobalt, Lavender, Mint, Clay, Honey, Rose, Glacier and Graphite. Cobalt is the default and takes its blue from the app icon. Graphite has no color at all, and its dark mode is true black.
+
+![The eight themes in dark mode](docs/themes-dark.png)
+
+![The eight themes in light mode](docs/themes-light.png)
+
+A test holds every theme to the same contrast limits, so the code, the countdown ring and the buttons read clearly in all sixteen variants.
 
 ## Why it is built this way
 
@@ -402,6 +412,7 @@ This approach ensures reproducible builds and prevents unexpected breaking chang
 
 App uses `flutter_native_splash` package. Configuration is in `flutter_native_splash.yaml`.
 - Source images are in `assets/splash/`: the mark, a smaller mark for Android 12+ (which clips it to a circle) and the app name shown at the bottom, each in a light and a dark version
+- The background colors are the page colors of the default theme, so the first frame of the app matches the splash
 - The splash follows the system light or dark appearance, not the theme chosen in the app: the system draws it before any app code runs
 - Changes apply when you run `make setup`
 
@@ -417,6 +428,7 @@ App uses `flutter_launcher_icons` package.
 App uses Material 3 with predefined themes. `AppTheme` in `lib/features/theme/domain/model/app_theme.dart` lists them, and `lib/features/theme/themes/app_theme_data.dart` turns each one into Flutter's `ThemeData`.
 - Define new themes by adding an entry to `AppTheme`, its color schemes to `AppThemeData` and its name to the theme feature's `en.arb`
 - Each theme includes light/dark color schemes and text theme
+- `test/features/theme/app_theme_data_test.dart` checks every theme against the contrast limits, so a new theme is covered as soon as it joins `AppTheme`
 - Shapes, component styles and the bundled Sora font (`assets/fonts/`) are the same in every theme and live in `AppThemeData`
 - The default theme is `AppTheme.defaultTheme`
 

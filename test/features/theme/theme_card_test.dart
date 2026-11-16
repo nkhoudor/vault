@@ -6,14 +6,14 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   const names = {
-    AppTheme.cozy: 'Cozy',
-    AppTheme.catppuccin: 'Catppuccin',
-    AppTheme.nord: 'Nord',
-    AppTheme.dracula: 'Dracula',
-    AppTheme.tokyoNight: 'Tokyo Night',
-    AppTheme.gruvbox: 'Gruvbox',
-    AppTheme.oneDark: 'One Dark',
+    AppTheme.cobalt: 'Cobalt',
+    AppTheme.lavender: 'Lavender',
     AppTheme.mint: 'Mint',
+    AppTheme.clay: 'Clay',
+    AppTheme.honey: 'Honey',
+    AppTheme.rose: 'Rose',
+    AppTheme.glacier: 'Glacier',
+    AppTheme.graphite: 'Graphite',
   };
 
   for (final theme in AppTheme.values) {
