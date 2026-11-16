@@ -96,5 +96,12 @@
   "scannerErrorUnsupportedType": "Only time-based codes are supported.",
   "scannerHint": "Point the camera at the QR code shown by the service.",
   "searchHint": "Search accounts",
+  "setupStepEnable": "Turn on two-factor authentication",
+  "setupStepEnableHint": "In the security settings of the service you want to protect",
+  "setupStepScan": "Scan the QR code it shows",
+  "setupStepScanHint": "Or type the setup key next to it",
+  "setupStepSignIn": "Sign in with the code",
+  "setupStepSignInHint": "The app shows a new one every 30 seconds",
+  "setupTitle": "Set up your first code",
   "tapToCopy": "Tap to copy"
 }

@@ -29,7 +29,7 @@ void main() {
         ),
       ),
     );
-    await tester.tap(find.byType(FloatingActionButton));
+    await tester.tap(find.byType(FilledButton));
     await tester.pumpAndSettle();
   }
 

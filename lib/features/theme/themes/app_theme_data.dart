@@ -67,16 +67,6 @@ extension AppThemeData on AppTheme {
           textStyle: textTheme.titleMedium,
         ),
       ),
-      floatingActionButtonTheme: FloatingActionButtonThemeData(
-        elevation: 0,
-        focusElevation: 0,
-        hoverElevation: 0,
-        highlightElevation: 0,
-        shape: const CircleBorder(),
-        sizeConstraints: const BoxConstraints.tightFor(width: 52, height: 52),
-        backgroundColor: colorScheme.primary,
-        foregroundColor: colorScheme.onPrimary,
-      ),
       segmentedButtonTheme: SegmentedButtonThemeData(
         style: SegmentedButton.styleFrom(
           minimumSize: buttonSize,

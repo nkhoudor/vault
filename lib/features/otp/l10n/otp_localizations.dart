@@ -367,6 +367,48 @@ abstract class OtpLocalizations {
   /// **'Search accounts'**
   String get searchHint;
 
+  /// No description provided for @setupStepEnable.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn on two-factor authentication'**
+  String get setupStepEnable;
+
+  /// No description provided for @setupStepEnableHint.
+  ///
+  /// In en, this message translates to:
+  /// **'In the security settings of the service you want to protect'**
+  String get setupStepEnableHint;
+
+  /// No description provided for @setupStepScan.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan the QR code it shows'**
+  String get setupStepScan;
+
+  /// No description provided for @setupStepScanHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Or type the setup key next to it'**
+  String get setupStepScanHint;
+
+  /// No description provided for @setupStepSignIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in with the code'**
+  String get setupStepSignIn;
+
+  /// No description provided for @setupStepSignInHint.
+  ///
+  /// In en, this message translates to:
+  /// **'The app shows a new one every 30 seconds'**
+  String get setupStepSignInHint;
+
+  /// No description provided for @setupTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Set up your first code'**
+  String get setupTitle;
+
   /// No description provided for @tapToCopy.
   ///
   /// In en, this message translates to:
