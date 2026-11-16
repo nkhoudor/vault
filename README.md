@@ -15,6 +15,8 @@ Vault is a two-factor authenticator app. It stores the setup keys of your accoun
 
 Setup keys are stored only on the device, in the iOS Keychain or Android Keystore through `flutter_secure_storage`. The app has no backend and no user account. Codes are computed on the device.
 
+The app collects no data. The [privacy policy](PRIVACY.md) says so in full.
+
 ## Themes
 
 Cobalt, Lavender, Mint, Clay, Honey, Rose, Glacier and Graphite. Cobalt is the default and takes its blue from the app icon. Graphite has no color at all, and its dark mode is true black.
